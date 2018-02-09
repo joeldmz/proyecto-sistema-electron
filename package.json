@@ -1,0 +1,19 @@
+{
+  "name": "sistem-electron",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron index.js"
+  },
+  "author": "Dominguez Joel",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^4.0.0",
+    "electron": "^1.7.11",
+    "glyphilectron": "^1.0.0",
+    "jquery": "^3.3.1",
+    "mysql": "^2.15.0",
+    "popper.js": "^1.12.9"
+  }
+}

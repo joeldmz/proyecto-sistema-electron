@@ -1,0 +1,109 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="./css/mainstyle.css">
+        <link rel="stylesheet" href="../node_modules/glyphilectron/public/lib/css/bootstrap.min.css">
+    </head>
+    <body>
+       <div id="app" >
+        <div  id="header">
+            <div class="col-md-2">
+
+            </div>
+            <div class="col-md-10">
+                <span class="glyphicon glyphicon-th-list" id="btnExpand"></span>
+            </div>
+            
+        </div>
+        <div id="line">
+
+        </div>
+        <div> 
+            <div class="btn-group-vertical col-md-2" id="nav" >
+               <ul>
+                   <li v-on:click="loadAllPatients()">Repuestos</li>
+                   <li>Donadores</li>
+                   <li>Extracciones</li>
+                   <li>Tranfusiones</li>
+               </ul>
+            </div>
+            <div class="col-md-10" id="section"> 
+                    
+                    
+                    <div class="container" id="tbl" > 
+                        <h4>Repuestos</h4>
+                        <hr>
+                        <div class="panel panel-default" id="pnlPatients">
+                                <!--<div class="panel-heading" id="pnlPatientsHead">
+                                    
+                                </div>-->
+                                <div class="panel-body" id="pnlPatientsBody">
+                                    <div class="col-md-6" id="body1">
+                                            <button class="btn btn-success"><span class="glyphicon glyphicon-plus mr-3"></span>Agregar</button>
+                                    </div>
+                                    <div class="col-md-6" id="body2">
+                                           <div class="col-md-6" id="filter">
+                                                <span class="glyphicon glyphicon-filter"></span>
+                                                <div class="form-group">
+                                                        <select class="form-control" id="inputFilter">
+                                                          <option>Filtrar..</option>
+                                                          <option>Z-A</option>
+                                                          <option>D.N.I</option>
+                                                          <option>Fecha</option>
+                                                        </select>
+                                                      </div>
+                                            </div>
+                                           <div class="col-md-6" id="search">
+                                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Buscar">
+                                                <button class="btn btn-success"><span class="glyphicon glyphicon-search"></span></button>
+                                           </div>
+                                            
+                                    </div>
+                                   
+                                </div>
+                        </div>
+                        <div class="panel panel-default" id="listPatient">
+                                <div class="panel-body">
+                                        <table class="table table-condensed" >
+                                                <thead>
+                                                  <tr>
+                                                    <th>Modelo</th>
+                                                    <th>Repuesto</th>
+                                                    <th>Precio Unitario</th>
+                                                    <th>Precio Mayor</th>
+                                                    <th>Precio Publico</th>
+                                                    <th>Acciones</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                  <tr v-for="spare in spares">
+                                                    <td>{{spare.phone_model}}</td>
+                                                    <td>{{spare.type}}</td>
+                                                    <td>${{spare.simple_price}}</td>
+                                                    <td>${{spare.mayor_price}}</td>
+                                                    <td>${{spare.public_price}}</td>
+                                                    <td><button class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></button>
+                                                    <butto class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button></td>
+                                                  </tr>
+                                                </tbody>
+                                          </table>
+                                </div>
+
+                        </div>
+                        
+                    </div>
+                
+            </div>
+
+            
+      </div>
+            <!--<div class="col-md-3" id="aside">
+            </div>-->           
+        </div>
+     </div> 
+
+     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+     <script src="../node_modules/vue/dist/vue.min.js"></script>
+     <script src="./js/main.js"></script>
+     </body>
+</html.>

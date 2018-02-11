@@ -17,9 +17,9 @@ exports.getAllPatients = () => {
 }
 
 exports.saveSpare = (spare) => {
-    //console.log(spare.phone_model + "holaa");
+    console.log(spare);
+    var flag = false;
     var connection = dbConnection.createConnection();
-    //var query = "INSERT INTO spares (phone_model, type, simple_price, mayor_price, public_price) VALUES ?";
     var query = "INSERT INTO spares SET ?";
     var value = { phone_model:spare.phone_model,
                   type: spare.type,
@@ -27,13 +27,14 @@ exports.saveSpare = (spare) => {
                   mayor_price:spare.mayor_price,
                   public_price:spare.public_price };
     
-                  connection.query(query,value,(err,resp)=>{
+    connection.query(query,value,(err,resp)=>{
         if(err){
             console.log(err);
         }else{
-            console.log(resp);
+            flag = !flag;
         }
     });
+    return flag;
 }
 
 

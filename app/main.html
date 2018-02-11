@@ -2,7 +2,9 @@
     <head>
         <meta charset="utf-8">
         <link rel="stylesheet" href="./css/mainstyle.css">
-        <link rel="stylesheet" href="../node_modules/glyphilectron/public/lib/css/bootstrap.min.css">
+        <link rel="stylesheet" href="./css/bootstrap.css">
+        <!--<link rel="stylesheet" href="../node_modules/glyphilectron/public/lib/css/bootstrap.min.css">-->
+        
     </head>
     <body>
        <div id="app" >
@@ -22,14 +24,18 @@
             <div class="btn-group-vertical col-md-2" id="nav" >
                <ul>
                    <li v-on:click="loadAllPatients()">Repuestos</li>
-                   <li>Donadores</li>
-                   <li>Extracciones</li>
-                   <li>Tranfusiones</li>
+                   <li v-on:click="showAlert()">Productos</li>
+                   <li v-on:click="timeOut()">Reparaciones</li>
+                   <li>Ventas</li>
                </ul>
             </div>
             <div class="col-md-10" id="section"> 
-                    
-                    
+                    <div>
+                        <div v-if="alert" class="alert alert-success alert-dismissible">
+                              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                              <strong>OK!</strong> El repuesto se agrego correctamente!.
+                        </div>
+                    </div>
                     <div class="container" id="tbl" > 
                         <h4>Repuestos</h4>
                         <hr>
@@ -39,13 +45,13 @@
                                 </div>-->
                                 <div class="panel-body" id="pnlPatientsBody">
                                     <div class="col-md-6" id="body1">
-                                            <button class="btn btn-success"><span class="glyphicon glyphicon-plus mr-3"></span>Agregar</button>
+                                            <button class="btn btn-success" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-plus mr-3"></span>Agregar</button>
                                     </div>
                                     <div class="col-md-6" id="body2">
                                            <div class="col-md-6" id="filter">
                                                 <span class="glyphicon glyphicon-filter"></span>
                                                 <div class="form-group">
-                                                        <select class="form-control" id="inputFilter">
+                                                        <select class="form-control" id="inputFilter" aria-placeholder="holll">
                                                           <option>Filtrar..</option>
                                                           <option>Z-A</option>
                                                           <option>D.N.I</option>
@@ -62,6 +68,7 @@
                                    
                                 </div>
                         </div>
+                        
                         <div class="panel panel-default" id="listPatient">
                                 <div class="panel-body">
                                         <table class="table table-condensed" >
@@ -94,16 +101,109 @@
                     </div>
                 
             </div>
-
-            
-      </div>
+        </div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h3 class="modal-title" id="exampleModalLabel">Agregar Repuesto</h3>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form>
+                        <div class="form-group">
+                          <label for="recipient-name" class="col-form-label" >Marca:</label>
+                          <select class="form-control" id="inputFilter" v-model="phone_trademark">
+                                <option>SAMSUNG</option>
+                                <option>MOTOROLA</option>
+                                <option>LG</option>
+                                <option>SONY</option>
+                                <option>ALCATEL</option>
+                                <option>HUAWEI</option>
+                                <option>NOKIA</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Modelo:</label>
+                                <input type="text" class="form-control" id="recipient-name" placeholder="ej: J7 J700M" v-model="phone_model">
+                              </div>
+                        <div>
+                        <div class="form-group">
+                           <label for="recipient-name" class="col-form-label">Tipo:</label>
+                                <select class="form-control" id="inputFilter" v-model="type"> 
+                                    <option>MODULO</option>
+                                    <option>DISPLAY</option>
+                                    <option>TOUCH</option>
+                                    <option>PIN DE CARGA</option>
+                                    <option>FLEX</option>
+                                    <option>BATERIA</option>
+                                </select>
+                        </div>
+                        </div>
+                        <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Precio por unidad:</label>
+                                <div class="input-group">
+                                  <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+                                  <input id="email"  type="number" class="form-control" name="email" placeholder="0,00" v-model="simple_price" > 
+                                 </div>
+                         </div> 
+                        <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Precio por mayor:</label>
+                                <div class="input-group">
+                                  <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+                                  <input id="email" type="number" class="form-control" name="email" placeholder="0,00" v-model="mayor_price">
+                                 </div>
+                        </div> 
+                        <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Precio al publico:</label>
+                                    <div class="input-group">
+                                      <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+                                      <input id="email" type="number" class="form-control" name="email" placeholder="0,00" v-model="public_price">
+                                     </div>
+                        </div> 
+                      </form>
+                      
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#confirmModal">Agregar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h4 class="modal-title" id="exampleModalLabel">Confirmar</h4>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <h5>Se Agregara un nuevo repuesto!</h5>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                          <button type="button" class="btn btn-success" v-on:click="saveSpare()" data-dismiss="modal" data-toggle="modal" data-target="#exampleModal">Aceptar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
             <!--<div class="col-md-3" id="aside">
             </div>-->           
         </div>
+        
      </div> 
-
-     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+     
+     <script>
+            window.jQuery = window.$ = require('jquery');
+     </script>
+     <script src="js/jquery-3.3.1.js"></script>
+     <script src="js/bootstrap.min.js"></script>
      <script src="../node_modules/vue/dist/vue.min.js"></script>
      <script src="./js/main.js"></script>
      </body>
-</html.>
+</html>

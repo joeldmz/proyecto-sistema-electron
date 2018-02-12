@@ -46,10 +46,10 @@ var app = new Vue({
           simple_price: this.simple_price,
           mayor_price: this.mayor_price,
           public_price: this.public_price };
-        //console.log(spare);
-          var ok = patientController.saveSpare(spare);
-          console.log(ok);
-          if(ok){
+
+        var ok = patientController.saveSpare(spare);
+        console.log(ok);
+        if(ok){
             this.alert = !this.alert;
             this.timeOut();
             this.spares.push(spare);

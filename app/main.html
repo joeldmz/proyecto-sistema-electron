@@ -24,8 +24,9 @@
             <div class="btn-group-vertical col-md-2" id="nav" >
                <ul>
                    <li v-on:click="loadAllPatients()">Repuestos</li>
-                   <li v-on:click="showAlert()">Productos</li>
-                   <li v-on:click="timeOut()">Reparaciones</li>
+                   <li>Productos</li>
+                   <li>Reparaciones</li>
+                   <li>Clientes</li>
                    <li>Ventas</li>
                </ul>
             </div>
@@ -53,9 +54,9 @@
                                                 <div class="form-group">
                                                         <select class="form-control" id="inputFilter" aria-placeholder="holll">
                                                           <option>Filtrar..</option>
-                                                          <option>Z-A</option>
-                                                          <option>D.N.I</option>
-                                                          <option>Fecha</option>
+                                                          <option>Marca</option>
+                                                          <option>Modelo</option>
+                                                          <option>Precio</option>
                                                         </select>
                                                       </div>
                                             </div>
@@ -68,11 +69,25 @@
                                    
                                 </div>
                         </div>
-                        
-                        <div class="panel panel-default" id="listPatient">
-                                <div class="panel-body">
-                                        <table class="table table-condensed" >
-                                                <thead>
+                        <div class="panel panel-default" id="pnlTitleSpares" >
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                      <th id="t1">Modelo</th>
+                                      <th id="t2">Repuesto</th>
+                                      <th id="t3">Precio Unitario</th>
+                                      <th id="t3">Precio Mayor</th>
+                                      <th id="t4">Precio Publico</th>
+                                      <th>Acciones</th>
+                                    </tr>
+                                  </thead>
+                            </table>
+                        </div>
+                        <div class="panel panel-default" id="pnlSpares" >
+                                
+                                <div class="panel-body" id="pnlBody">
+                                        <table class="table table-condensed" id="tableSpares">
+                                                <!--<thead>
                                                   <tr>
                                                     <th>Modelo</th>
                                                     <th>Repuesto</th>
@@ -81,18 +96,20 @@
                                                     <th>Precio Publico</th>
                                                     <th>Acciones</th>
                                                   </tr>
-                                                </thead>
-                                                <tbody>
+                                                </thead>-->
+                                              
+                                                 <tbody>
                                                   <tr v-for="spare in spares">
-                                                    <td>{{spare.phone_model}}</td>
-                                                    <td>{{spare.type}}</td>
-                                                    <td>${{spare.simple_price}}</td>
-                                                    <td>${{spare.mayor_price}}</td>
-                                                    <td>${{spare.public_price}}</td>
+                                                    <td id="t1">{{spare.phone_model}}</td>
+                                                    <td id="t2">{{spare.type}}</td>
+                                                    <td id="t3">${{spare.simple_price}}</td>
+                                                    <td id="t3">${{spare.mayor_price}}</td>
+                                                    <td id="t4">${{spare.public_price}}</td>
                                                     <td><button class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></button>
                                                     <butto class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button></td>
                                                   </tr>
                                                 </tbody>
+                                            
                                           </table>
                                 </div>
 
@@ -193,7 +210,7 @@
                     </div>
                   </div>
             <!--<div class="col-md-3" id="aside">
-            </div>-->           
+            </div>-->          
         </div>
         
      </div> 

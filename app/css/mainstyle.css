@@ -25,7 +25,7 @@ body{
 #nav{
     padding: 0%;
     background: #F0F3F4;
-    height: 91%;
+    height: 100%;
     transition: all 0.5s ease;
 }
 
@@ -133,11 +133,48 @@ body{
     width: 100%
 }
 
-#listPatient{
+#pnlTitleSpares{
     border: #00796B;
     border-radius: 1px;
     box-shadow: 1px 1px 4px #D5DBDB;
     padding: 0%;
+    margin-bottom: 0%;
+}
+
+#t1 {
+    width: 282px;  
+}
+#t2{
+    width: 220px;
+}
+#t3{
+    width: 150px;
+}
+#t4{
+    width: 180px;
+}
+
+#pnlSpares{
+    border: #00796B;
+    border-radius: 1px;
+    box-shadow: 1px 1px 4px #D5DBDB;
+    padding: 0%;
+    height: 70%;
+    overflow: auto;
+    position: relative;
+}
+
+#tableSpares{
+    padding: 0%;
+     margin: 0%;
+     width:100%;
+}
+
+
+
+#pnlBody{
+    padding: 0%;
+    overflow: auto;
 }
 
 

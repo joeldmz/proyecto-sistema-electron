@@ -84,21 +84,9 @@
                             </table>
                         </div>
                         <div class="panel panel-default" id="pnlSpares" >
-                                
                                 <div class="panel-body" id="pnlBody">
-                                        <table class="table table-condensed" id="tableSpares">
-                                                <!--<thead>
-                                                  <tr>
-                                                    <th>Modelo</th>
-                                                    <th>Repuesto</th>
-                                                    <th>Precio Unitario</th>
-                                                    <th>Precio Mayor</th>
-                                                    <th>Precio Publico</th>
-                                                    <th>Acciones</th>
-                                                  </tr>
-                                                </thead>-->
-                                              
-                                                 <tbody>
+                                        <table class="table table-hover" id="tableSpares">
+                                               <tbody>
                                                   <tr v-for="spare in spares">
                                                     <td id="t1">{{spare.phone_model}}</td>
                                                     <td id="t2">{{spare.type}}</td>
@@ -109,15 +97,11 @@
                                                     <butto class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button></td>
                                                   </tr>
                                                 </tbody>
-                                            
                                           </table>
                                 </div>
-
+                          </div>
                         </div>
-                        
-                    </div>
-                
-            </div>
+                </div>
         </div>
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -176,9 +160,9 @@
                         <div class="form-group">
                                     <label for="recipient-name" class="col-form-label">Precio al publico:</label>
                                     <div class="input-group">
-                                      <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-                                      <input id="email" type="number" class="form-control" name="email" placeholder="0,00" v-model="public_price">
-                                     </div>
+                                       <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+                                       <input id="email" type="number" class="form-control" name="email" placeholder="0,00" v-model="public_price">
+                                    </div>
                         </div> 
                       </form>
                       

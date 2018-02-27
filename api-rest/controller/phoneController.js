@@ -1,5 +1,26 @@
 const dbConnection = require("../utils/dbConnection");
 
+exports.loadAllTrademarks = ()=>{
+    var connection = dbConnection.createConnection();
+    var query = "SELECT * FROM trademarks";
+    var trademarks = [];
+    connection.query(query,(err, allTrademarks)=>{
+        if(err){
+            console.log(err);
+        }else{
+            for(let trademark of allTrademarks){
+                trademarks.push(trademark);
+            }
+        }
+    })
+
+    return trademarks;
+}
+
+
+
+
+
 exports.loadAllPhones = ()=>{
     var connection = dbConnection.createConnection();
     var query = "SELECT * FROM phones";
@@ -17,23 +38,44 @@ exports.loadAllPhones = ()=>{
     return phones;
 }
 
-exports.savePhone = (phone)=>{
+exports.savePhoneClient = (phoneClient)=>{
     var connection = dbConnection.createConnection();
-    var query = "INSERT INTO phones SET ?";
-    var value = { phone_trademark:phone.phone_trademark,
-        phone_model:phone.phone_model,
-        phone_so: phone.phone_so,
-        phone_version:phone.phone_version,
-        phone_nameversion:phone.phone_nameversion,
-        phone_unlock:phone.phone_unlock,
-        phone_imei_repair:phone.phone_imei_repair };
+    var query = "INSERT INTO mobilecustomer SET ?";
+    var value = { 
+        clients_id_client:phoneClient.id_client,
+        phones_id_phone:phoneClient.id_phone      
+        };
     
-    connection.query(query,value,(err,res)=>{
+    return new Promise((resolve,reject)=>{
+        connection.query(query,value,(err,res)=>{
             if(err){
-                console.log(err);
+                console.log("mi error: "+err);
+                reject(err);
             }else{
-                console.log("se agrego");
+                console.log("se agrego celular");
+                resolve(res.insertId);
             }
+        })
+
+    });
+}
+
+
+exports.getPhonesById = (id)=>{
+    var connection = dbConnection.createConnection();
+    var query = "SELECT * FROM mobileCustomer, phones, trademarks WHERE mobileCustomer.clients_id_client = "+id+" AND phones.id_phone = mobileCustomer.phones_id_phone AND trademarks.id_trademark = phones.trademark_id_trademark";
+    var phones = [];
+    connection.query(query,(err,listPhones)=>{
+         if(!err){
+                console.log(listPhones);
+                for(let phone of listPhones){
+                    phones.push(phone);
+                }
+         }else{
+             console.log("error: "+err);
+         }
 
     })
+
+    return phones;
 }

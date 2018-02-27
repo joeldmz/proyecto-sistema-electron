@@ -2,19 +2,24 @@
   "name": "sistem-electron",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./app/index.js",
   "scripts": {
-    "start": "electron ./app/index.js"
+    "start": "electron ./app",
+    "package-win": "electron-packager . --asar=true --platform=win32 --arch=ia32  --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"sistema Electron\""
   },
   "author": "Dominguez Joel",
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^4.0.0",
-    "electron": "^1.7.11",
     "glyphilectron": "^1.0.0",
     "jquery": "^3.3.1",
     "mysql": "^2.15.0",
     "popper.js": "^1.12.9",
     "vue": "^2.5.13"
+  },
+  "devDependencies": {
+    "electron": "^1.8.2",
+    "electron-builder": "^20.0.5",
+    "electron-packager": "^11.0.1"
   }
 }

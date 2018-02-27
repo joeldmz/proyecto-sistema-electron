@@ -29,6 +29,7 @@ exports.openWindows = () => {
        protocol: 'file',
        slashes: false
      }))
+     //mainWindows.setFullScreen(true);
      //mainWindows.setMenu(null);
 }
 

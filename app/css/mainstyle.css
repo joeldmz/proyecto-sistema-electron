@@ -185,7 +185,7 @@ body{
                 #pnlDataPhone{
                     border-radius: 0%;
                     padding: 0%;
-                    width: 552px;
+                    width: 549px;
                     height: 453px;
                     margin: 1px;
                 }
@@ -209,10 +209,14 @@ body{
                 }
 
                 #pnlDataPhone #listPhonesClient #tablePhones{
-                    height: 280px;
+                    height: 220px;
                     border-radius: 0%;
                     overflow: auto;
                     padding: 8px;
+                }
+
+                #pnlDataPhone #listPhonesClient button{
+                    margin-left: 400px;
                 }
 
                 #listRepairPhone{
@@ -239,7 +243,48 @@ body{
                   height: 90px;
                   overflow: auto;
                 }
+                
+                #date label{
+                    margin-right: 22px;
+                }
+                #nameClient label{
+                    margin-right: 20px;
+                }
 
+                #nameClient input{
+                    width: 496px;
+                }
+                #address input{
+                    width: 496px;
+                }
+                #phoneRepairData #label1{
+                    margin-right: 22px;
+                }
+                #phoneRepairData select{
+                    width: 239px;
+                }
+                #priceRepair label{
+                    margin-right: 22px;
+
+                }
+                #priceRepair input{ 
+                    width: 183px;
+                }
+                
+                
+                #state label{
+                    margin-right: 18px;
+                }
+                #state select{
+                    width: 221px;
+                }
+
+                #pricePart #labelFee{
+                    margin-right: 30px;
+                }
+                #pricePart input{
+                    width: 183px;
+                }
 
 
     #aside{
@@ -249,3 +294,7 @@ body{
         height: 91%;
     }
 
+ 
+ .obligatoriedField {
+     border-color: black;
+ }   

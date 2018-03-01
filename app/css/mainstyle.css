@@ -226,6 +226,19 @@ body{
                     box-shadow: 1px 1px 4px #B3B6B7;
                 }
 
+                #btnA{
+                    border: #FDFEFE;
+                    border-radius: 1px;
+                    box-shadow: 1px 1px 4px #B3B6B7;
+                }
+
+                #btnB{
+                    border: #FDFEFE;
+                    background: #45B39D;
+                    border-radius: 1px;
+                    box-shadow: 1px 1px 4px #B3B6B7;
+                }
+
                 #pnlBody{
                     padding: 0%;
                     overflow: auto;

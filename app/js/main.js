@@ -2,7 +2,7 @@
 var app = new Vue({
     el: '#app',
     created: function(){
-      alert("bienBenido VueElectron")
+      
        this.clickNavOption(1);
     },
     data: {
@@ -12,7 +12,6 @@ var app = new Vue({
     },
     methods:{
       clickNavOption: function(op){
-              alert(op);
               switch(op){
               case 1: this.viewSpare = true
                       this.viewRepair = false ;

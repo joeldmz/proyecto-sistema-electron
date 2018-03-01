@@ -8,7 +8,6 @@ exports.getAllPatients = () => {
         if(err){
             console.log("errar al traer los datos "+err);
         }else{
-           console.log("todoooo  " +allSpares)
            for(let spare of allSpares){
                spares.push(spare);
            }
@@ -18,35 +17,51 @@ exports.getAllPatients = () => {
 }
 
 exports.saveSpare = (spare) => {
-    console.log(spare);
     var connection = dbConnection.createConnection();
     var query = "INSERT INTO spares SET ?";
-    var value = { phone_trademark:spare.phone_trademark,
-                  phone_model:spare.phone_model,
-                  type: spare.type,
-                  simple_price:spare.simple_price,
-                  mayor_price:spare.mayor_price,
-                  public_price:spare.public_price };
-    connection.query(query,value,(err,resp) => {
+    return new Promise((resolve,reject)=>{
+          connection.query(query,spare,(err,resp)=>{
             if(err){
                 console.log(err)
             }else{
-                  
+                console.log(resp);
+                 resolve(true); 
             }
-
-    });
+        });
+    });         
     
-    return true;
 }
 
+exports.updateSpare = (id,spare)=>{
+    var connection = dbConnection.createConnection();
+    var query = "UPDATE spares SET ? WHERE id_spares = "+id;
+    return new Promise((resolve,reject)=>{
+        connection.query(query,spare,(err,res)=>{
+            if(err){
+                console.log("Algo salio mal "+err);
+            }else{
+                resolve(true);
+            }
+        });
+     
+    });
+};
+
+
+
 exports.deleteSpare = (id) => {
-    console.log(id);
     var connection = dbConnection.createConnection();
     var query = "DELETE FROM spares WHERE id_spares = ?";
-    connection.query(query, id, (err, resp) => {
-        if(err)
-        console.log(err);
+    return new Promise((resolve,reject)=>{ 
+        connection.query(query, id, (err, resp) => {
+            if(err){
+                 console.log("Algo salio mal al eliminar "+ err);
+            }else{
+                 resolve(true);
+            }
+        });
     });
+    
 }
 
 

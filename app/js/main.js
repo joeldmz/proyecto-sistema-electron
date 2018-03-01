@@ -1,40 +1,19 @@
 
-
-
-
 var app = new Vue({
     el: '#app',
     created: function(){
-       this.loadAllPatients();
+      alert("bienBenido VueElectron")
        this.clickNavOption(1);
     },
     data: {
-      phone_trademark:"",
-      phone_model:"",
-      type:"",
-      simple_price: 0,
-      mayor_price:  0,
-      public_price: 0,
-      viewSpare: false,
-      viewRepair: false,
-      alert: false,
-      delSpare:{},
-      spares: [],
-      /*spare:{ phone_model: 'MOTO G4 PLAY',
-          type: 'MODULO',
-          simple_price: 1200,
-          mayor_price: 1100,
-          public_price: 0 }*/
+      viewSpare: true,
+      viewRepair: true,
+      alert: false
     },
     methods:{
-      loadAllPatients: function(){
-        var patientController = require("../api-rest/controller/patientController");
-        this.spares = patientController.getAllPatients();
-      },
-
       clickNavOption: function(op){
-            console.log(op)
-            switch(op){
+              alert(op);
+              switch(op){
               case 1: this.viewSpare = true
                       this.viewRepair = false ;
                       break;
@@ -45,8 +24,8 @@ var app = new Vue({
               
       },
 
-      saveSpare: function(){
-        var patientController = require("../api-rest/controller/patientController");
+      /*saveSpare: function(){
+        var patientController = require("../api-rest/controller/spareController");
         //var phone = this.phone_trademark +" "+this.phone_model;
         var spare = { 
           phone_trademark: this.phone_trademark,
@@ -78,7 +57,7 @@ var app = new Vue({
       },
 
       confirmAction: function(){
-        var patientController = require("../api-rest/controller/patientController");
+        var patientController = require("../api-rest/controller/spareController");
         patientController.deleteSpare(this.delSpare.id_spares);
         this.spares.splice(this.spares.indexOf(this.delSpare),1);
       },
@@ -90,6 +69,6 @@ var app = new Vue({
            this.simple_price = spare.simple_price;
            this.mayor_price = spare.mayor_price;
            this.public_price = spare.public_price;
-      }
+      }*/
     }
   })

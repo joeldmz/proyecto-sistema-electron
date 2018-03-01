@@ -12,10 +12,10 @@ Vue.component('repair-component', {
            <div class="container" id="tbl" > 
            <h4>Clientes</h4>
            <hr>
-           <div class="panel panel-default" id="pnlPatients">
-                                <div class="panel-body" id="pnlPatientsBody">
+           <div class="panel panel-default" id="pnlSpare">
+                                <div class="panel-body" id="pnlSparesBody">
                                     <div class="col-md-6" id="body1">
-                                            <button class="btn btn-success" v-on:click="saveClientAndPhone" data-toggle="modal" data-target="#saveRepairModal"><span class="glyphicon glyphicon-plus mr-3"></span>Agregar Cliente</button>
+                                            <button class="btn btn-success" v-on:click="saveClientAndPhone" data-toggle="modal" data-target="#saveRepairModal">Nuevo</button>
                                     </div>
                                     <div class="col-md-6" id="body2">
                                            <div class="col-md-0" id="filter">

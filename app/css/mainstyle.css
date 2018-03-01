@@ -2,45 +2,69 @@ body{
     overflow: hidden;
 }
    #header{
-    background: #00796B;
-    height: 50px;
-   }
+   
+    height: 40px;
+    }
+        #header1{
+            background: #273746;
+            height: 100%;
+        }
+
+        #iconVue{
+            color:  rgb(38, 189, 189);
+            margin-top: 5px;
+            height: 30px;
+            
+        }
+        
+        #header1 p{
+            color: rgb(38, 189, 189);
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        #header2{
+            background: #FDFEFE;
+            height: 100%;
+            box-shadow: 1px 1px 4px #D5DBDB;
+        }    
+
 
             #btnExpand{
                     cursor: pointer;
                     margin-top: 16px;
                     margin-left: 0px;
                     color: white;
+                   
             }
 
     #nav{
         padding: 0%;
-        background: #F0F3F4;
+        background: #2C3E50;
         height: 100%;
-        transition: all 0.5s ease;
+        box-shadow: 1px 2px 4px #D5DBDB;
+        
     }
 
 
                 #nav ul{
-                    list-style: none;
                     padding: 0%;
                     margin: 0%;
                 }
 
                 #nav ul li {
                     cursor: pointer;
-                    color: #34495E;
-                    text-decoration: none;
-                    display: block;
-                    padding: 10px;
-                
+                    color: #B2BABB;
+                    height: 40px;
                     transition: border 0.3s;
                 }
 
+                
+
                 #nav ul li:hover{
                     color: white;
-                    background: #4CAF50;
-                /* border-left: 5px solid #F0F3F4;*/
+                    background: #273746;
+                    border-left: 2px solid  rgb(38, 189, 189);
                     
                 }
 
@@ -54,14 +78,24 @@ body{
                     border-color: #1E8449;
                 }
 
-    #section{
+                #icon{
+                    margin-top: 12px;
+                }
 
+                #palabra{
+                    margin-top: 9px;
+                }
+
+                #arrowIcon{
+                    margin-top: 13px;
+                }
+    #section{
         margin: 0%;
         padding: 0%;
         height: 88%;
     }
 
-                #pnlPatients{
+                #pnlSpare{
                     
                     border-radius: 1%;
                     border: #00796B;
@@ -81,28 +115,35 @@ body{
                     
                 }
 
-                #pnlPatientsBody{
+                #pnlSparesBody{
                 border-top: #00796B;
                 height: 65px;
                 
                 }
 
-                #pnlPatientsBody #body1{
+                #pnlSparesBody #body1{
                     border-top: #00796B;
                     display: flex;
                     padding: 0%;
                 
                 }
 
-                #pnlPatientsBody #body2{
+                #pnlSparesBody #body1 button{
+                    background: #45B39D;
+                    border: #FDFEFE;
+                    border-radius: 1px;
+                    box-shadow: 1px 1px 4px #B3B6B7;
+                }
+
+                #pnlSparesBody #body2{
                     padding: 0%;
                 }
 
-                #pnlPatientsBody #body2 #filter{
+                #pnlSparesBody #body2 #filter{
                     display: flex;
                 }
 
-                #pnlPatientsBody #body2 #filter span{
+                #pnlSparesBody #body2 #filter span{
                     margin-top: 10px;
                     margin-right: 15px;
                     color: #34495E;
@@ -110,15 +151,21 @@ body{
 
 
 
-                #pnlPatientsBody #body2 #search{
+                #pnlSparesBody #body2 #search{
                     display: flex;
 
                 }
+                #pnlSparesBody #body2 #search input{
+                    border-radius: 1px;
 
-                #pnlPatientsBody #body2 button{
-                    margin-left: 5px;
+                }
+
+                #pnlSparesBody #body2 button{
+                    border: #FDFEFE;
+                    background: #45B39D;
+                    border-radius: 1px;
                     width: 60px;
-
+                    box-shadow: 1px 1px 4px #D5DBDB;
                 }
 
                 #tbl{
@@ -167,7 +214,17 @@ body{
                     width:100%;
                 }
 
-
+                #btn1{
+                    border: #FDFEFE;
+                    background: #45B39D;
+                    border-radius: 1px;
+                    box-shadow: 1px 1px 4px #B3B6B7;
+                }
+                #btn2{
+                    border: #FDFEFE;
+                    border-radius: 1px;
+                    box-shadow: 1px 1px 4px #B3B6B7;
+                }
 
                 #pnlBody{
                     padding: 0%;
@@ -217,6 +274,10 @@ body{
 
                 #pnlDataPhone #listPhonesClient button{
                     margin-left: 400px;
+                    border: #FDFEFE;
+                    background: #45B39D;
+                    border-radius: 1px;
+                    box-shadow: 1px 1px 4px #B3B6B7;
                 }
 
                 #listRepairPhone{
@@ -288,7 +349,7 @@ body{
 
 
     #aside{
-        background: #F0F3F4;
+        background: #F8F9F9;
         margin: 0%;
         padding: 0%;
         height: 91%;

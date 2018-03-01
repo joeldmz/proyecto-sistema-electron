@@ -2,12 +2,13 @@ const dbConnection = require("../utils/dbConnection");
 
 exports.getAllPatients = () => { 
     var connection = dbConnection.createConnection();
-    var query = "SELECT * FROM spares";
+    var query = "SELECT * FROM spares, phones, trademarks WHERE spares.phones_id_phone = phones.id_phone AND phones.trademark_id_trademark = trademarks.id_trademark";
     var spares = [];
     connection.query(query,(err, allSpares)=>{
         if(err){
-            console.log("errar al traer los datos");
+            console.log("errar al traer los datos "+err);
         }else{
+           console.log("todoooo  " +allSpares)
            for(let spare of allSpares){
                spares.push(spare);
            }

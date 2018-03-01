@@ -3,45 +3,89 @@
         <meta charset="utf-8">
         <link rel="stylesheet" href="./css/mainstyle.css">
         <link rel="stylesheet" href="./css/bootstrap.css">
+        <script defer src="js/fontawesome-all.js"></script>
         <!--<link rel="stylesheet" href="../node_modules/glyphilectron/public/lib/css/bootstrap.min.css">-->
         <TItle>BseRoot</TItle>
     </head>
     <body>
       <div id="app" >
         <div  id="header">
-            <div class="col-md-2">
-
-            </div>
-            <div class="col-md-10">
-                <span class="glyphicon glyphicon-th-list" id="btnExpand"></span>
+            <div class="col-md-2" id="header1">
+               <div class="col-md-2">
+                  <img src="src/Vue.js.svg.png" alt="" id="iconVue">
+               </div>
+                <div class="col-md-10">
+                    <p>ElectronVue.Inc</p>
+                </div>
+              </div>
+            <div class="col-md-10" id="header2">
+                
             </div>
             
         </div>
         <div id="line">
         </div>
         <div> 
-            <div class="btn-group-vertical col-md-2" id="nav" >
+            <div class="btn-group-vertical col-md-2" id="nav">
                <ul>
-                   <li v-on:click="clickNavOption(1)">Repuestos</li>
-                   <li v-on:click="clickNavOption(2)">Clientes</li>
-                   <li>Reparaciones</li>
-                   <li>Facturaciones</li>
-                   <li>Ventas</li>
+                   <li v-on:click="clickNavOption(1)">
+                      <div class="col-md-2">
+                        <i class="fas fa-mobile-alt" id="icon"></i>
+                      </div>
+                      <div class="col-md-8" id="palabra">
+                        Repuestos
+                      </div>
+                      <div class="col-md-2">
+                          <i class="fas fa-caret-right" id="arrowIcon"> </i>
+                      </div>
+                   </li>
+                   <li v-on:click="clickNavOption(2)">
+                     <div class="col-md-2">
+                        <i class="far fa-user" id="icon"></i>
+                     </div>
+                     <div class="col-md-8" id="palabra">
+                         Clientes
+                     </div>
+                    <div class="col-md-2">
+                          <i class="fas fa-caret-right" id="arrowIcon"> </i>
+                    </div>
+                   </li>
+                   <li>
+                      <div class="col-md-2">
+                         <i class="fas fa-wrench" id="icon"></i>
+                      </div>
+                      <div class="col-md-8" id="palabra">
+                           Reparaciones
+                      </div>
+                      <div class="col-md-2">
+                           <i class="fas fa-caret-right" id="arrowIcon"> </i>
+                      </div>
+                  </li>
+                  <li>
+                      <div class="col-md-2">
+                         <i class="far fa-file-alt" id="icon"></i>
+                      </div>
+                      <div class="col-md-8" id="palabra">
+                           Facturaciones
+                      </div>
+                      <div class="col-md-2">
+                           <i class="fas fa-caret-right" id="arrowIcon"> </i>
+                      </div>
+                  </li> 
                </ul>
             </div>
             
             <div class="col-md-10" id="section">
-               
-              <!--<div v-if="viewSpare">
+              <div v-if="viewSpare">
                   <spare-component></spare-component>
-              </div>-->
+              </div>
 
               <div v-if="viewRepair">
                   <repair-component></repair-component>
               </div>
                
                 
-              <div class="" v-if="viewSpare">
+              <!--<div class="" v-if="viewSpare">
                     <div>
                         <div v-if="alert" class="alert alert-success alert-dismissible">
                               <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -111,10 +155,10 @@
                                 </div>
                           </div>
                     </div>
-                </div>
+                </div>-->
             </div>    
         </div>
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!--<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -223,7 +267,7 @@
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div>-->
 
                   
             <!--<div class="col-md-3" id="aside">

@@ -3,6 +3,7 @@ const main = remote.require('./index.js');
 
 document.getElementById("btnlogin").addEventListener("click",() => {
     var mysql = require("mysql");
+    let query = "SELECT * FROM users";
     var connection = mysql.createConnection({
       host: "localhost",
       user: "root",
@@ -13,14 +14,9 @@ document.getElementById("btnlogin").addEventListener("click",() => {
     
     connection.connect((err)=>{
       if(err){
-        console.log("los sentimon a habido un err :(" + err);
-      }else{
-        console.log("conexion aceptada");
-    
+        alert("Error al conectar con la base de datos! contactese con el desarrollador");
       }
     });
-    
-    let query = "SELECT * FROM users";
     
     connection.query(query,(err, rows, fields)=>{
       if(err){
@@ -39,7 +35,6 @@ document.getElementById("btnlogin").addEventListener("click",() => {
                   flag = true;
               }
            }
-    
            return flag;
         }
     
@@ -47,14 +42,14 @@ document.getElementById("btnlogin").addEventListener("click",() => {
            main.openWindows();
            main.closeWindows();
         }else{
-          alert("fail :(");
+          alert("No registrado");
         }
     
     
       }
     });
     
-    connection.end(()=>{
+    connection.end(() => {
         console.log("conexion cerrada");
     });
     

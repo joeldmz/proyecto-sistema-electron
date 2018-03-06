@@ -1,7 +1,7 @@
 const dbConnection = require("../utils/dbConnection");
 
 exports.getAllPatients = () => { 
-    var connection = dbConnection.createConnection();
+    var connection = dbConnection.openConnection();
     var query = "SELECT * FROM spares, phones, trademarks WHERE spares.phones_id_phone = phones.id_phone AND phones.trademark_id_trademark = trademarks.id_trademark";
     var spares = [];
     connection.query(query,(err, allSpares)=>{
@@ -17,7 +17,7 @@ exports.getAllPatients = () => {
 }
 
 exports.saveSpare = (spare) => {
-    var connection = dbConnection.createConnection();
+    var connection = dbConnection.openConnection();
     var query = "INSERT INTO spares SET ?";
     return new Promise((resolve,reject)=>{
           connection.query(query,spare,(err,resp)=>{
@@ -33,7 +33,7 @@ exports.saveSpare = (spare) => {
 }
 
 exports.updateSpare = (id,spare)=>{
-    var connection = dbConnection.createConnection();
+    var connection = dbConnection.openConnection();
     var query = "UPDATE spares SET ? WHERE id_spares = "+id;
     return new Promise((resolve,reject)=>{
         connection.query(query,spare,(err,res)=>{
@@ -50,7 +50,7 @@ exports.updateSpare = (id,spare)=>{
 
 
 exports.deleteSpare = (id) => {
-    var connection = dbConnection.createConnection();
+    var connection = dbConnection.openConnection();
     var query = "DELETE FROM spares WHERE id_spares = ?";
     return new Promise((resolve,reject)=>{ 
         connection.query(query, id, (err, resp) => {

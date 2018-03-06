@@ -24,10 +24,37 @@ body{
         }
 
         #header2{
+            margin: 0px;
+            padding: 0px;
             background: #FDFEFE;
             height: 100%;
             box-shadow: 1px 1px 4px #D5DBDB;
         }    
+        #pnlUserLog{
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #pnlUserLog h5{
+                position: relative;
+                margin-top: 14px;
+                margin-left: 5px;
+        }
+        
+        #userLog{
+            margin-top: 8px;
+            width: 27px;
+            height: 27px;
+            margin-left: 20px;
+        }
+
+        #listUserLog{
+            cursor: pointer;
+            margin-top: 9px;
+            width: 23px;
+            height: 23px;
+            color: rgb(33, 162, 162);
+        }
 
 
             #btnExpand{
@@ -94,7 +121,24 @@ body{
         padding: 0%;
         height: 88%;
     }
+                #section h5{
+                    color: #85929E;
+                    margin-left: 553px;
+                }
+                #gifOctopus{
+                     margin-top: 220px;
+                     margin-left: 485px;
+                     width: 200px;
+                     height: 150px;
+                }
 
+                #gifBull{
+                    margin-top: 220px;
+                     margin-left: 484px;
+                     width: 200px;
+                     height: 130px;
+                }
+                
                 #pnlSpare{
                     
                     border-radius: 1%;

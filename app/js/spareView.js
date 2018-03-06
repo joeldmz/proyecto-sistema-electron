@@ -3,9 +3,9 @@ Vue.component('spare-component', {
      <div id="pnlMainSpares">
          <div v-if="alert" class="alert alert-success alert-dismissible row">
                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-               <strong v-if="saveMode">OK Guardado!</strong>
-               <strong v-if="updateMode">OK Modificado!</strong>
-               <strong v-if="deleteMode">OK Borrado!</strong>
+               <strong v-if="saveMode">Repuesto Guardado!</strong>
+               <strong v-if="updateMode">Repuesto Modificado!</strong>
+               <strong v-if="deleteMode">Repuesto Borrado!</strong>
          </div>
          <div id="tbl" > 
                         <h4>Repuestos</h4>
@@ -128,7 +128,7 @@ Vue.component('spare-component', {
                                 </div>
                                 <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnA">Cancelar</button>
-                                <button v-if="saveMode" type="button" class="btn btn-success" data-toggle="modal" data-target="#confirmModal" id="btnB" v-on:click="checkForm" >Agregar</button>
+                                <button v-if="saveMode" type="button" class="btn btn-success" v-on:click="checkForm" data-toggle="modal" data-target="#confirmModal" id="btnB">Agregar</button>
                                 <button v-if="updateMode" type="button" class="btn btn-success" data-toggle="modal" data-target="#confirmModal" id="btnB">Modificar</button>
                                 </div>
                             </div>
@@ -140,7 +140,7 @@ Vue.component('spare-component', {
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Confirmar</h5>
+                                <!--<h5 class="modal-title" id="exampleModalLabel">Confirmar</h5>-->
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
@@ -189,6 +189,7 @@ Vue.component('spare-component', {
     },
     data(){
         return{
+            spareController:null,
             searchText:"",
             activeConfirm: false,
             field_trademark:"",
@@ -217,8 +218,8 @@ Vue.component('spare-component', {
     },
     methods:{
         loadAllSpares: function(){
-            var spareController = require("../api-rest/controller/spareController");
-            this.spares = spareController.getAllPatients();
+            this.spareController = require("../api-rest/controller/spareController");
+            this.spares = this.spareController.getAllPatients();
         },
 
         loadAllPhones: function(){
@@ -229,7 +230,6 @@ Vue.component('spare-component', {
         
         saveSpare: function(){
             this.selectedPhoneModel();
-            var spareController = require("../api-rest/controller/spareController");
             var spare = { 
               type: this.type,
               simple_price: this.simple_price,
@@ -237,7 +237,7 @@ Vue.component('spare-component', {
               public_price: this.public_price,
               phones_id_phone: this.id_phone };
     
-              spareController.saveSpare(spare)
+              this.spareController.saveSpare(spare)
               .then((res)=>{
                   this.alert = res;
                   this.timeOut();
@@ -273,8 +273,6 @@ Vue.component('spare-component', {
         },
         
         updateSpare: function(){
-            
-            var spareController = require("../api-rest/controller/spareController");
             var spare = {
                 type:this.type,
                 simple_price:this.simple_price,
@@ -282,7 +280,7 @@ Vue.component('spare-component', {
                 public_price:this.public_price
             };
             
-            spareController.updateSpare(this.id_spare,spare)
+            this.spareController.updateSpare(this.id_spare,spare)
             .then((res)=>{
                 this.alert = res;
                 this.timeOut();
@@ -376,8 +374,7 @@ Vue.component('spare-component', {
             this.updateMode = false;
             this.saveMode = false;
 
-            var spareController = require("../api-rest/controller/spareController");
-            spareController.deleteSpare(this.id_spare)
+            this.spareController.deleteSpare(this.id_spare)
             .then((res)=>{
                 this.alert = res;
                 this.timeOut();
@@ -385,10 +382,6 @@ Vue.component('spare-component', {
             });
         },
 
-        customFiletr: function(spare){
-           return spare.trademark.indexOf(this.searchText) != -1 ;
-        },
-        
         timeOut: function(){ 
             setTimeout(()=>{
               this.alert = !this.alert;
@@ -399,7 +392,7 @@ Vue.component('spare-component', {
     computed:{
         searchModel: function(){
             return this.spares.filter((spare)=>{
-                return spare.trademark.toLowerCase().indexOf(this.searchText) != -1 || spare.phone_model.toLowerCase().indexOf(this.searchText) != -1 ;
+                return spare.trademark.toLowerCase().indexOf(this.searchText) != -1 || spare.phone_model.toLowerCase().indexOf(this.searchText) != -1;
             });
         }
       }

@@ -1,24 +1,25 @@
 const mySql = require("mysql");
+var connection = null;
 
-
-exports.createConnection = () =>{
-    var connection = mySql.createConnection({
+createConnection = ()=>{
+      connection = mySql.createConnection({
         host: "localhost",
         user: "root",
         password: "123456789",
         database: "sistemacelulares"
       });
-     
+}
+
+exports.openConnection = () =>{
+      createConnection();
       connection.connect((err)=>{
         if(err){
-          console.log("los sentimos a habido un error :(" + err);
+          console.log("los sentimos a ocurrido un error: " + err);
         }else{
           console.log("conexion aceptada");
-      
         }
       });
-
       return connection;
 }
-    
-//exports.createConnection;
+
+

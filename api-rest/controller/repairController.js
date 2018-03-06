@@ -1,7 +1,7 @@
 const dbConnection = require("../utils/dbConnection");
 
 exports.saveRepair = (repair,callback)=>{
-    var connection = dbConnection.createConnection();
+    var connection = dbConnection.openConnection();
     var query = "INSERT INTO repairs SET ?";
     var value = { 
         date:repair.repair_date,
@@ -23,11 +23,13 @@ exports.saveRepair = (repair,callback)=>{
             }
           callback(flag);  
         })
+
+        connection.end();
 }
 
 
 exports.getAllRepairs = ()=>{
-    var connection = dbConnection.createConnection();
+    var connection = dbConnection.openConnection();
     var query = "SELECT * FROM repairs";
     var repairs = [];
     connection.query(query,(err,listRepairs)=>{
@@ -40,6 +42,6 @@ exports.getAllRepairs = ()=>{
          }
 
     })
-
+    connection.end();
     return repairs;
 }

@@ -1,7 +1,7 @@
 const dbConnection = require("../utils/dbConnection");
 
 exports.loadAllTrademarks = ()=>{
-    var connection = dbConnection.createConnection();
+    var connection = dbConnection.openConnection();
     var query = "SELECT * FROM trademarks";
     var trademarks = [];
     connection.query(query,(err, allTrademarks)=>{
@@ -13,7 +13,7 @@ exports.loadAllTrademarks = ()=>{
             }
         }
     })
-
+    connection.end();
     return trademarks;
 }
 
@@ -22,7 +22,7 @@ exports.loadAllTrademarks = ()=>{
 
 
 exports.loadAllPhones = ()=>{
-    var connection = dbConnection.createConnection();
+    var connection = dbConnection.openConnection();
     var query = "SELECT * FROM phones";
     var phones = [];
     connection.query(query,(err, allPhones)=>{
@@ -34,12 +34,12 @@ exports.loadAllPhones = ()=>{
             }
         }
     })
-
+    connection.end();
     return phones;
 }
 
 exports.savePhoneClient = (phoneClient)=>{
-    var connection = dbConnection.createConnection();
+    var connection = dbConnection.openConnection();
     var query = "INSERT INTO mobilecustomer SET ?";
     var value = { 
         clients_id_client:phoneClient.id_client,
@@ -58,11 +58,13 @@ exports.savePhoneClient = (phoneClient)=>{
         })
 
     });
+
+    connection.end();
 }
 
 
 exports.getPhonesById = (id)=>{
-    var connection = dbConnection.createConnection();
+    var connection = dbConnection.openConnection();
     var query = "SELECT * FROM mobileCustomer, phones, trademarks WHERE mobileCustomer.clients_id_client = "+id+" AND phones.id_phone = mobileCustomer.phones_id_phone AND trademarks.id_trademark = phones.trademark_id_trademark";
     var phones = [];
     connection.query(query,(err,listPhones)=>{
@@ -76,6 +78,6 @@ exports.getPhonesById = (id)=>{
          }
 
     })
-
+    connection.end();
     return phones;
 }

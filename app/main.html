@@ -19,7 +19,21 @@
                 </div>
               </div>
             <div class="col-md-10" id="header2">
-                
+                <div class="col-md-10">
+
+                </div>
+                <div class="col-md-2" id="pnlUserLog">
+                    <div class="col-md-3">
+                        <img src="src/iconUser.jpg" alt="" id="userLog">
+                    </div>
+                    <div class="col-md-6">
+                        <h5>{{userLog}}</h5>
+                    </div>
+                    <div class="col-md-3">
+                        <i class="far fa-caret-square-down" id="listUserLog"></i>
+                    </div>
+                    
+                </div>
             </div>
             
         </div>
@@ -76,13 +90,18 @@
             </div>
             
             <div class="col-md-10" id="section">
-                <div v-if="viewSpare">
+                <img  v-show = "gifOctopus" src="src/octo-loader.gif" alt="" id="gifOctopus">
+                <img  v-show = "gifBull" src="src/bullPysique.gif" id="gifBull">
+                <h5 v-show = "gifOctopus">Cargando...</h5>
+                <h5 v-show = "gifBull">Cargando...</h5>
+                <div v-show = "viewSpare">
                     <spare-component></spare-component>
                 </div>
 
-                <div v-if="viewRepair">
+                <div v-show = "viewRepair">
                     <repair-component></repair-component>
                 </div>
+                              
             </div>    
         </div>
       </div>

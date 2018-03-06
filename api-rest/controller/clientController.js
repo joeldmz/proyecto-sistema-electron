@@ -1,7 +1,7 @@
 const dbConnection = require("../utils/dbConnection");
 
 exports.saveClient = (client) =>{
-    var connection = dbConnection.createConnection();
+    var connection = dbConnection.openConnection();
     var query = "INSERT INTO clients SET ?";
     var value = { name:client.name,
         address:client.address };
@@ -14,11 +14,12 @@ exports.saveClient = (client) =>{
         })
     });
     
+    connection.end();
 }
 
 
 exports.getAllClients = ()=>{
-    var connection = dbConnection.createConnection();
+    var connection = dbConnection.openConnection();
     var query = "SELECT * FROM clients";
     var clients = [];
     connection.query(query,(err, allClients)=>{
@@ -30,6 +31,8 @@ exports.getAllClients = ()=>{
             }
         }
     })
+
+    connection.end();
 
     return clients;
 }

@@ -18,7 +18,7 @@ document.getElementById("btnlogin").addEventListener("click",() => {
       }
     });
     
-    connection.query(query,(err, rows, fields)=>{
+    connection.query(query,(err,rows,fields)=>{
       if(err){
         console.log("Lo sentimos a ocurrido un error :(");
       }else{
@@ -26,20 +26,21 @@ document.getElementById("btnlogin").addEventListener("click",() => {
         let i;
         let user = document.getElementById("user").value;
         let pass = document.getElementById("password").value;
-    
+        var userLog = null;
     
         function checkUser(){
            var flag = false;
            for(i=0;i<rows.length;i++){
               if(rows[i].user == user && rows[i].password == pass){
                   flag = true;
+                  userLog = rows[i];
               }
            }
            return flag;
         }
     
         if(checkUser()){
-           main.openWindows();
+           main.openWindows(userLog);
            main.closeWindows();
         }else{
           alert("No registrado");

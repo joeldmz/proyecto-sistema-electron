@@ -6,7 +6,7 @@ exports.loadAllTrademarks = ()=>{
     var trademarks = [];
     connection.query(query,(err, allTrademarks)=>{
         if(err){
-            console.log(err);
+            console.log("Error al traer los datos: "+err);
         }else{
             for(let trademark of allTrademarks){
                 trademarks.push(trademark);
@@ -27,7 +27,7 @@ exports.loadAllPhones = ()=>{
     var phones = [];
     connection.query(query,(err, allPhones)=>{
         if(err){
-            console.log(err);
+            console.log("Error al traer los datos: "+err);
         }else{
             for(let phone of allPhones){
                 phones.push(phone);
@@ -49,10 +49,9 @@ exports.savePhoneClient = (phoneClient)=>{
     return new Promise((resolve,reject)=>{
         connection.query(query,value,(err,res)=>{
             if(err){
-                console.log("mi error: "+err);
+                console.log("Error al guardar: "+err);
                 reject(err);
             }else{
-                console.log("se agrego celular");
                 resolve(res.insertId);
             }
         })
@@ -69,12 +68,11 @@ exports.getPhonesById = (id)=>{
     var phones = [];
     connection.query(query,(err,listPhones)=>{
          if(!err){
-                console.log(listPhones);
                 for(let phone of listPhones){
                     phones.push(phone);
                 }
          }else{
-             console.log("error: "+err);
+             console.log("Error al traer los datos: "+err);
          }
 
     })

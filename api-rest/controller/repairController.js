@@ -1,6 +1,6 @@
 const dbConnection = require("../utils/dbConnection");
 
-exports.saveRepair = (repair,callback)=>{
+exports.saveRepair = (repair)=>{
     var connection = dbConnection.openConnection();
     var query = "INSERT INTO repairs SET ?";
     var value = { 
@@ -9,22 +9,21 @@ exports.saveRepair = (repair,callback)=>{
         observations: repair.repair_observations ,
         price: repair.repair_price,
         state: repair.repair_state,
-        part_pay: repair.repair_price_part,
+        part_pay: repair.repair_part_price,
         balance: repair.repair_balance,
         clientPhone_id_client_phone: repair.repair_id_phone,
         };
-    
+    return new Promise((resolve,reject)=>{
         connection.query(query,value,(err,res)=>{
-            var flag = false;
             if(!err){
-                flag = true;
+                resolve(true);
             }else{
-                console.log(err);
-            }
-          callback(flag);  
+                console.log("Error al guardar: "+err);
+            }  
         })
-
         connection.end();
+    });
+ 
 }
 
 
@@ -38,7 +37,7 @@ exports.getAllRepairs = ()=>{
                     repairs.push(repair);
                 }
          }else{
-             console.log("error: "+err);
+             console.log("Error al traer los datos: "+err);
          }
 
     })

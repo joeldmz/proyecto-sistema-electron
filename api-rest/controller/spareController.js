@@ -6,7 +6,7 @@ exports.getAllPatients = () => {
     var spares = [];
     connection.query(query,(err, allSpares)=>{
         if(err){
-            console.log("errar al traer los datos "+err);
+            console.log("Error al traer los datos: "+err);
         }else{
            for(let spare of allSpares){
                spares.push(spare);
@@ -22,7 +22,7 @@ exports.saveSpare = (spare) => {
     return new Promise((resolve,reject)=>{
           connection.query(query,spare,(err,resp)=>{
             if(err){
-                console.log(err)
+                console.log("Error al guardar: "+err)
             }else{
                 console.log(resp);
                  resolve(true); 
@@ -38,7 +38,7 @@ exports.updateSpare = (id,spare)=>{
     return new Promise((resolve,reject)=>{
         connection.query(query,spare,(err,res)=>{
             if(err){
-                console.log("Algo salio mal "+err);
+                console.log("Error al Atualizar "+err);
             }else{
                 resolve(true);
             }
@@ -55,7 +55,7 @@ exports.deleteSpare = (id) => {
     return new Promise((resolve,reject)=>{ 
         connection.query(query, id, (err, resp) => {
             if(err){
-                 console.log("Algo salio mal al eliminar "+ err);
+                 console.log("Error al eliminar "+ err);
             }else{
                  resolve(true);
             }

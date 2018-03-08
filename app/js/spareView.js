@@ -1,7 +1,7 @@
 Vue.component('spare-component', {
      template: `
      <div id="pnlMainSpares">
-         <div v-if="alert" class="alert alert-success alert-dismissible row">
+         <div v-if="alert" class="alert alert-success alert-dismissible row" id="info">
                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                <strong v-if="saveMode">Repuesto Guardado!</strong>
                <strong v-if="updateMode">Repuesto Modificado!</strong>
@@ -128,7 +128,7 @@ Vue.component('spare-component', {
                                 </div>
                                 <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnA">Cancelar</button>
-                                <button v-if="saveMode" type="button" class="btn btn-success" v-on:click="checkForm" data-toggle="modal" data-target="#confirmModal" id="btnB">Agregar</button>
+                                <button v-if="saveMode" type="button" class="btn btn-success" v-on:mouseover="checkForm" v-on:click="checkForm" data-toggle="modal" data-target="#confirmModal" id="btnB">Agregar</button>
                                 <button v-if="updateMode" type="button" class="btn btn-success" data-toggle="modal" data-target="#confirmModal" id="btnB">Modificar</button>
                                 </div>
                             </div>
@@ -162,7 +162,6 @@ Vue.component('spare-component', {
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Confirmar</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>

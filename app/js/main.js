@@ -55,7 +55,7 @@ var app = new Vue({
             this.gifOctopus = false;
             this.gifBull = false;
             this.clickNavOption(1);
-          },3000);
+          },5000);
           
       }, 
     }

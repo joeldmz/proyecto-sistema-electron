@@ -121,10 +121,11 @@ body{
         padding: 0%;
         height: 88%;
     }
-                #section h5{
+               #loading {
                     color: #85929E;
                     margin-left: 553px;
                 }
+                
                 #gifOctopus{
                      margin-top: 220px;
                      margin-left: 485px;
@@ -297,11 +298,11 @@ body{
                 }
 
                 #pnlDataPhone{
-                    border-radius: 0%;
-                    padding: 0%;
-                    width: 549px;
-                    height: 453px;
                     margin: 1px;
+                    border-radius: 0%;
+                    padding: 0px;
+                    width: 552px;
+                    height: 453px;
                 }
                 
                 #pnlDataPhone h5{
@@ -313,41 +314,113 @@ body{
                }
 
                 #pnlDataPhone  input {
-                margin: 2px;
+                   margin: 2px;
                 }
 
                 #pnlDataPhone #listPhonesClient {
+                    padding: 0px;
                     margin-right: 13px;
                     margin-left: 14px;
-                    
+                }
+
+                #listRepairsClient{
+                    padding: 0px;
+                    margin: 1px;
+                    margin-right: 13px;
+                    margin-left: 14px;
+                }
+
+                #listRepairsClient hr{
+                    margin: 0px;
+                    padding: 0px;
+                }
+                #listRepairsClient form{
+                    margin: 0px;
+                    padding: 0px;
+                }
+                
+                #listRepairsClient div{
+                    margin-top: 3px;
+                    padding: 0px;
+                }
+               
+                #listRepairsClient input{
+                    margin: 0px;
+                }
+
+                #inputDisplayDate{
+                    width: 200px;
+                }
+                
+                #lblDispalyPrice{
+                    margin-right: 4px;
+                }
+                #inputDisplayPrice{
+                    width: 157px;
+                }
+                #lblDisplayPartPrice{
+                    margin-right: 13px;
+                }
+                #inputDisplayPartPrice{
+                    width: 157px;
+                }
+                #lblDisplayBalance{
+                    margin-right: 13px;
+                    margin-left: 10px;
+                }
+                #inputDisplayBalance{
+                    width: 157px;
                 }
 
                 #pnlDataPhone #listPhonesClient #tablePhones{
                     height: 220px;
                     border-radius: 0%;
                     overflow: auto;
-                    padding: 8px;
+                    padding: 5px;
                 }
 
+                #tablePhones td{
+                    width: 10%;
+                }
+
+                #tablePhones td buttom{
+                  margin-left: 5px;
+                  border-radius: 1px;
+                  box-shadow: 1px 1px 1px #B3B6B7;
+                }
+                
+                /*#listPhonesClient{
+                    padding: 0px;
+                    margin: 0px;
+                }*/
+
+                #phoneHeader{
+                    margin: 0%;
+                    padding: 0px;
+                }
+
+               
+
                 #pnlDataPhone #listPhonesClient button{
-                    margin-left: 400px;
+                    margin-left: 403px;
                     border: #FDFEFE;
                     background: #45B39D;
                     border-radius: 1px;
                     box-shadow: 1px 1px 4px #B3B6B7;
                 }
-
-                #listRepairPhone{
+                 
+                /*#listRepairPhone{
                     margin-top: 1px;
                     margin-right: 13px;
                     margin-left: 14px;
-                }
-                #statePrice{
+                }*/
+                
+                /*#statePrice{
                     margin-top: 15px;
                     
-                }
+                }*/
 
-                #statePrice label{
+                /*#statePrice label{
                     margin-top: 20px;
                     
                 }
@@ -355,13 +428,25 @@ body{
                 #statePrice input{
                     margin-top: 10px;
                     
-                }
+                }*/
 
                 #pnlRepairsPhone{
+                  padding: 0px;
                   height: 90px;
                   overflow: auto;
                 }
+
+                #tdRepair{
+                   width: 78%;
+                }
+
+                #tdButtons buttom{
+                    margin-left: 4px;
+                    border-radius: 1px;
+                    box-shadow: 1px 1px 1px #B3B6B7;
+                }
                 
+                /*style modal */
                 #date label{
                     margin-right: 22px;
                 }
@@ -411,8 +496,22 @@ body{
         padding: 0%;
         height: 91%;
     }
-
+#info{
+    background:#52BE80;
+    color:white;
+    float: right;
+    width: 30%;
+    border: #FDFEFE;
+    border-radius: 1px;
+    box-shadow: 1px 1px 4px #B3B6B7;
+}
  
- .obligatoriedField {
-     border-color: black;
- }   
+#preventInfo{
+    background:#F7DC6F;
+    color:white;
+    float: right;
+    width: 30%;
+    border: #FDFEFE;
+    border-radius: 1px;
+    box-shadow: 1px 1px 4px #B3B6B7;
+}

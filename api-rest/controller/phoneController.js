@@ -2,7 +2,7 @@ const dbConnection = require("../utils/dbConnection");
 
 exports.loadAllTrademarks = ()=>{
     var connection = dbConnection.openConnection();
-    var query = "SELECT * FROM trademarks";
+    var query = "SELECT * FROM sistemacelulares.trademarks";
     var trademarks = [];
     connection.query(query,(err, allTrademarks)=>{
         if(err){
@@ -41,11 +41,11 @@ exports.loadAllPhones = ()=>{
 exports.savePhoneClient = (phoneClient)=>{
     var connection = dbConnection.openConnection();
     var query = "INSERT INTO mobilecustomer SET ?";
-    var value = { 
+    var value = {
         clients_id_client:phoneClient.id_client,
-        phones_id_phone:phoneClient.id_phone      
+        phones_id_phone:phoneClient.id_phone
         };
-    
+
     return new Promise((resolve,reject)=>{
         connection.query(query,value,(err,res)=>{
             if(err){

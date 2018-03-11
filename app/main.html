@@ -1,9 +1,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="./css/mainstyle.css">
-        <link rel="stylesheet" href="./css/bootstrap.css">
-        <script defer src="js/fontawesome-all.js"></script>
+        <link rel="stylesheet" href="./src/css/mainstyle.css">
+        <link rel="stylesheet" href="src/css/bootstrap/bootstrap.css">
+        <script defer src="src/js/fontawesome-all.js"></script>
         <!--<link rel="stylesheet" href="../node_modules/glyphilectron/public/lib/css/bootstrap.min.css">-->
         <TItle>BseRoot</TItle>
     </head>
@@ -12,7 +12,7 @@
         <div  id="header">
             <div class="col-md-2" id="header1">
                <div class="col-md-2">
-                  <img src="src/Vue.js.svg.png" alt="" id="iconVue">
+                  <img src="src/assets/Vue.js.svg.png" alt="" id="iconVue">
                </div>
                 <div class="col-md-10">
                     <p>ElectronVue.Inc</p>
@@ -24,7 +24,7 @@
                 </div>
                 <div class="col-md-2" id="pnlUserLog">
                     <div class="col-md-3">
-                        <img src="src/iconUser.jpg" alt="" id="userLog">
+                        <img src="src/assets/iconUser.jpg" alt="" id="userLog">
                     </div>
                     <div class="col-md-6">
                         <h5>{{userLog}}</h5>
@@ -90,8 +90,8 @@
             </div>
             
             <div class="col-md-10" id="section">
-                <img  v-show = "gifOctopus" src="src/octo-loader.gif" alt="" id="gifOctopus">
-                <img  v-show = "gifBull" src="src/bullPysique.gif" id="gifBull">
+                <img  v-show = "gifOctopus" src="src/assets/octo-loader.gif" alt="" id="gifOctopus">
+                <img  v-show = "gifBull" src="src/assets/bullPysique.gif" id="gifBull">
                 <h5 v-show = "gifOctopus" id="loading">Cargando...</h5>
                 <h5 v-show = "gifBull" id="loading">Cargando...</h5>
                 <div v-show = "viewSpare">
@@ -111,11 +111,11 @@
      <script>
             window.jQuery = window.$ = require('jquery');
      </script>
-     <script src="js/jquery-3.3.1.js"></script>
-     <script src="js/bootstrap.min.js"></script>
+     <script src="src/js/jquery-3.3.1.js"></script>
+     <script src="src/js/bootstrap.min.js"></script>
      <script src="../node_modules/vue/dist/vue.min.js"></script>
-     <script src="./js/main.js"></script>
-     <script src="./js/spareView.js"></script>
-     <script src="./js/repairView.js"></script>
+     <script src="src/statics/components/main.js"></script>
+     <script src="src/statics/components/spareView.js"></script>
+     <script src="src/statics/components/repairView.js"></script>
      </body>
 </html>

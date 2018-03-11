@@ -7,17 +7,17 @@ document.getElementById("btnlogin").addEventListener("click",() => {
     var connection = mysql.createConnection({
       host: "localhost",
       user: "root",
-      password: "123456789",
+      password: "root",
       database: "sistemacelulares"
     });
-    
-    
+
+
     connection.connect((err)=>{
       if(err){
         alert("Error al conectar con la base de datos! contactese con el desarrollador");
       }
     });
-    
+
     connection.query(query,(err,rows,fields)=>{
       if(err){
         console.log("Lo sentimos a ocurrido un error :(");
@@ -27,7 +27,7 @@ document.getElementById("btnlogin").addEventListener("click",() => {
         let user = document.getElementById("user").value;
         let pass = document.getElementById("password").value;
         var userLog = null;
-    
+
         function checkUser(){
            var flag = false;
            for(i=0;i<rows.length;i++){
@@ -38,21 +38,20 @@ document.getElementById("btnlogin").addEventListener("click",() => {
            }
            return flag;
         }
-    
+
         if(checkUser()){
            main.openWindows(userLog);
            main.closeWindows();
         }else{
           alert("No registrado");
         }
-    
-    
+
+
       }
     });
-    
+
     connection.end(() => {
         console.log("conexion cerrada");
     });
-    
+
     });
-    

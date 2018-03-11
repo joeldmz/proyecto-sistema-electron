@@ -5,7 +5,7 @@ createConnection = ()=>{
       connection = mySql.createConnection({
         host: "localhost",
         user: "root",
-        password: "123456789",
+        password: "root",
         database: "sistemacelulares"
       });
 }
@@ -21,5 +21,3 @@ exports.openConnection = () =>{
       });
       return connection;
 }
-
-

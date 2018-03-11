@@ -1,7 +1,7 @@
 
-Vue.component('repair-component', {   
-    template: 
-    `<div> 
+Vue.component('repair-component', {
+    template:
+    `<div>
             <div>
                 <div v-if="addRepair" class="alert alert-success alert-dismissible" id="info">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -10,15 +10,15 @@ Vue.component('repair-component', {
                     <strong v-if="btnSaveRepair">Reparacion agregada!</strong>
                 </div>
             </div>
-            
+
             <div>
                 <div v-if="alertInfo" class="alert alert-success alert-dismissible" id="preventInfo">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                     <strong>Debe elegir un cliente!</strong>
                 </div>
             </div>
-           
-           <div class="container" id="tbl" > 
+
+           <div class="container" id="tbl" >
            <h4>Clientes</h4>
            <hr>
            <div class="panel panel-default" id="pnlSpare">
@@ -28,7 +28,7 @@ Vue.component('repair-component', {
                                     </div>
                                     <div class="col-md-6" id="body2">
                                            <div class="col-md-0" id="filter">
-                                                
+
                                             </div>
                                            <div class="col-md-12" id="search">
                                                 <input type="text" class="form-control" list="searchClient" id="exampleInputEmail1" placeholder="Buscar cliente" v-model="selectedNameClient" v-on:change="resetAll(1)">
@@ -37,16 +37,16 @@ Vue.component('repair-component', {
                                                 </datalist>
                                                 <button class="btn btn-success" v-on:click="selectedClient" ><span class="glyphicon glyphicon-search"></span></button>
                                            </div>
-                                            
+
                                     </div>
-                                   
+
                                 </div>
             </div>
             <div class="panel panel-default" id="pnlClients">
-               
+
 
                 <div>
-                    
+
                     <div class="panel panel-default col-md-6" id="pnlDataPhone">
                             <div class="panel panel-header">
                               <h5>Datos del cliente</h5>
@@ -67,10 +67,10 @@ Vue.component('repair-component', {
                                     <input v-model="inputClientAddress" type="text" class="form-control"  placeholder="no hay datos para mostrar">
                                 </div>
                             </div>
-                            
-                            
+
+
                             <div id="listPhonesClient">
-                                        <label for="email">Celulares registrados:</label>  
+                                        <label for="email">Celulares registrados:</label>
                                         <div class="panel panel-default" id="tablePhones">
                                             <table class="table table-condensed" >
                                             <tbody>
@@ -82,24 +82,24 @@ Vue.component('repair-component', {
                                                     <buttom class="btn btn-default" v-on:mouseover="phoneAddRepair" v-on:click="phoneAddRepair(phone)" data-toggle="modal" data-target="#saveRepairModal"><span class="glyphicon glyphicon-plus"></buttom>
                                                     <buttom class="btn btn-default" v-on:mouseover="resetAll(2)" v-on:click="selectedPhone(phone)"><span class="glyphicon glyphicon-share"></buttom>
                                                 </td>
-                                            
+
                                             </tr>
                                             </tbody>
                                             </table>
-                                        </div>      
-                                        <button class="btn btn-success" v-on:mouseover="savePhoneAndRepair" v-on:click="savePhoneAndRepair" data-toggle="modal" data-target="#saveRepairModal">Agregar celular</button>    
+                                        </div>
+                                        <button class="btn btn-success" v-on:mouseover="savePhoneAndRepair" v-on:click="savePhoneAndRepair" data-toggle="modal" data-target="#saveRepairModal">Agregar celular</button>
                             </div>
                         </div>
                     </div>
-                    
-                    
-                    
+
+
+
                     <div class="panel panel-default col-md-6 row" id="pnlDataPhone">
                             <div class="panel panel-header" id="phoneHeader">
                                     <h5>Datos del celular</h5>
                             </div>
                             <div id="listRepairsClient">
-                                 <div>   
+                                 <div>
                                     <label>Trabajos realizados:</label>
                                         <div class="panel panel-default" id="pnlRepairsPhone">
                                                     <table class="table table-hover" >
@@ -114,7 +114,7 @@ Vue.component('repair-component', {
                                                     </tbody>
                                                     </table>
                                         </div>
-                                    <hr>    
+                                    <hr>
                                     <form class="form-inline">
                                                         <div class="form-group">
                                                             <label>Fecha:</label>
@@ -135,7 +135,7 @@ Vue.component('repair-component', {
                                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
                                                                 <input type="number" v-model="inputPhonePrice" class="form-control" id="inputDisplayPrice" placeholder="0,00">
                                                             </div>
-                                                        </div>   
+                                                        </div>
                                     </form >
                                     <form class="form-inline">
                                                         <label id="lblDisplayPartPrice">Seña:</label>
@@ -149,12 +149,12 @@ Vue.component('repair-component', {
                                                                 <input v-model="inputPhoneBalance" type="number" class="form-control"  id="inputDisplayBalance" placeholder="0,00">
                                                         </div>
                                     </form >
-                                    
+
                         </div>
                     </div>
                 </div>
-                   
- 
+
+
 
                 <!-- Modal -->
                 <div v-if="modalForm" class="modal fade" id="saveRepairModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -167,7 +167,7 @@ Vue.component('repair-component', {
                         </button>
                     </div>
                     <div class="modal-body">
-                            <form> 
+                            <form>
                                    <div>
                                           <form class="form-inline" id="date">
                                                 <div class="form-group">
@@ -187,14 +187,14 @@ Vue.component('repair-component', {
                                                     <input type="email" class="form-control" v-model="repair_client_address" >
                                                 </div>
                                           </form >
-                                          
+
                                           <form v-if="inputSavePhone" class="form-inline" id="phoneRepairData">
                                                 <div class="form-group">
                                                     <label for="recipient-name" class="col-form-label" id="label1" >Marca:</label>
                                                     <select  v-model="phone_trademark"  class="form-control" id="inputFilter" v-on:change="selectedModel" v-bind:style="{ 'border-color': fieldPhoneTademark }">
                                                     <option v-for="trademark in trademarks">{{trademark.trademark}}</option>
-                                                    
-                                                    </select>  
+
+                                                    </select>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="recipient-name" class="col-form-label">Modelo:</label>
@@ -203,14 +203,14 @@ Vue.component('repair-component', {
                                                             <option v-for="phone in phoneModel">{{phone.phone_model}}</option>
                                                     </datalist>
                                                 </div>
-                                                
+
                                           </form >
-                                </div> 
-                                       
-                                       
-                                       
-                  
-                                        
+                                </div>
+
+
+
+
+
                                 <div class="form-group">
                                         <label for="comment">Trabajo a realizar:</label>
                                         <textarea class="form-control" rows="2" v-model="repair_description" v-bind:style="{ 'border-color': fieldDescription }" ></textarea>
@@ -237,11 +237,11 @@ Vue.component('repair-component', {
                                                                         <option>En reparacion / pagado</option>
                                                                         <option>Entregado / sin reparacion</option>
                                                                         <option>Entregado / pagado</option>
-                                                                        </select> 
+                                                                        </select>
                                         </div>
-                                        
+
                                 </form>
-                                
+
                                 <form v-if="partPrice" class="form-inline" id="pricePart">
                                     <div class="form-group">
                                         <label for="email" id="labelFee">Seña:</label>
@@ -250,7 +250,7 @@ Vue.component('repair-component', {
                                             <input type="number" class="form-control" name="email" v-on:change="calculateBalance" v-model="repair_part_price" placeholder="0,00" v-bind:style="{ 'border-color': fieldPartPrice }">
                                         </div>
                                     </div>
-                                
+
                                     <div class="form-group">
                                         <label for="email">Saldo:</label>
                                         <div class="input-group">
@@ -259,9 +259,9 @@ Vue.component('repair-component', {
                                         </div>
                                     </div>
                                 </form >
-                               
-                                
-                        
+
+
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" id="btnA" data-dismiss="modal">Cancelar</button>
@@ -273,7 +273,7 @@ Vue.component('repair-component', {
                 </div>
                 </div>
 
-               
+
 
                 <!-- Modal -->
                 <div v-if="modalConfirm" class="modal fade" id="saveRepairConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -296,14 +296,14 @@ Vue.component('repair-component', {
                     </div>
                 </div>
                 </div>
-                
 
-      
+
+
     <!--div final-->
     </div>`,
-    
+
     data() {
-       return { 
+       return {
                 //controllers
                 clientController:null,
                 phoneController:null,
@@ -366,7 +366,7 @@ Vue.component('repair-component', {
                 repair_part_price: 0,
                 repair_balance: 0,
                 repair_price: 0,
-               
+
             }
     },
 
@@ -375,13 +375,13 @@ Vue.component('repair-component', {
          this.loadAllClients();
          this.loadAllRepairs();
     },
-    
+
     methods:{
         loadAllClients: function(){
             this.clientController = require("../api-rest/controller/clientController");
             this.clients = this.clientController.getAllClients();
         },
-        
+
         loadAllPhones: function(){
             //var phoneController = require("../api-rest/controller/phoneController");
             this.phoneController = require("../api-rest/controller/phoneController");
@@ -406,8 +406,8 @@ Vue.component('repair-component', {
                 this.inputSavePhone = true;
                 this.btnSaveClient = true;
         },
-        
-        
+
+
         savePhoneAndRepair: function(){
             this.modalForm = false;
             if(this.phoneClient_id_client != 0){
@@ -422,10 +422,10 @@ Vue.component('repair-component', {
                 this.alertInfo = true;
                 this.addConfirm();
             }
-                
+
         },
-        
-        
+
+
         phoneAddRepair: function(phone){
             this.modalForm = true;
             this.clearFields();
@@ -436,15 +436,15 @@ Vue.component('repair-component', {
             this.btnSaveRepair = true;
             this.repair_id_client_phone = phone.id_client_phone;
         },
-        
-       
-       
-       
+
+
+
+
         //alta cliente
         saveClient: function(){
             var client = {
                 name:this.repair_client_name,
-                address:this.repair_client_address      
+                address:this.repair_client_address
             }
             this.clientController.saveClient(client)
             .then((res)=>{
@@ -452,9 +452,9 @@ Vue.component('repair-component', {
                 this.loadAllClients();
             }).then(this.savePhone);
         },
-        
-       
-       
+
+
+
         //guardar telefono
         savePhone: function(){
             var phoneClient ={
@@ -468,9 +468,9 @@ Vue.component('repair-component', {
             })
             .then(this.saveRepair);
         },
-        
-        
-        
+
+
+
         //guardar reparacion
         saveRepair: function(){
                 var repair = {
@@ -493,7 +493,7 @@ Vue.component('repair-component', {
                 });
         },
 
-        
+
         //busca id del cliente y extrae todos sus telefonos de la bd
         selectedClient: function(){
             var id = 0;
@@ -506,11 +506,11 @@ Vue.component('repair-component', {
             }
             //guradando id del cliente
             this.phoneClient_id_client = id;
-            
+
             //var phoneController = require("../api-rest/controller/phoneController");
             this.phonesOfClient = this.phoneController.getPhonesById(id);
         },
-        
+
         selectedLastClientInsert: function(num){
             this.loadAllClients();
             console.log("insertt " + num);
@@ -522,7 +522,7 @@ Vue.component('repair-component', {
             }
             this.selectedNameClient = n;
         },
-       
+
         //agrega a la lista de  modelos de acuerdo a la marca
         selectedModel: function(){
             var id = 0;
@@ -549,11 +549,11 @@ Vue.component('repair-component', {
                     idModel = phone.id_phone;
                 }
             }
-            
+
             this.phoneClient_id_phone = idModel;
         },
-        
-        
+
+
         //agrega a lista de reparaciones de los celulares del cliente
         selectedPhone: function(phone){
             this.repairsOfPhone = [];
@@ -565,7 +565,7 @@ Vue.component('repair-component', {
         },
 
         selectedRepair: function(repair){
-            
+
             this.inputPhoneDate = repair.date.toISOString().slice(0,10);
             if(repair.observations == ""){
                 this.inputPhoneObservation = "sin observaciones";
@@ -621,10 +621,10 @@ Vue.component('repair-component', {
                             }
                         }
                     }
-                }   
-            }        
+                }
+            }
         },
-        
+
 
         checkPhoneAndRepair: function(){
             this.getIdModel();
@@ -769,7 +769,7 @@ Vue.component('repair-component', {
                 this.inputPhonePartPrice="";
                 this.inputPhoneBalance="";
               }
-          }  
+          }
         },
 
         //mustra dialogo por 5 segundos
@@ -782,5 +782,3 @@ Vue.component('repair-component', {
 
     }
 })
-
-

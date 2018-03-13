@@ -17,10 +17,6 @@ exports.loadAllTrademarks = ()=>{
     return trademarks;
 }
 
-
-
-
-
 exports.loadAllPhones = ()=>{
     var connection = dbConnection.openConnection();
     var query = "SELECT * FROM phones";

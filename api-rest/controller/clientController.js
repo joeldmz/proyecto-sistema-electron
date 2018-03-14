@@ -1,11 +1,11 @@
 const dbConnection = require("../utils/dbConnection");
 
-exports.saveClient = (client) =>{
+exports.saveClient = (client) => {
     var connection = dbConnection.openConnection();
     var query = "INSERT INTO clients SET ?";
     var value = { name:client.name,
         address:client.address };
-    
+
     return new Promise((resolve,reject)=>{
         connection.query(query,value,(err,res)=>{
             if(!err){
@@ -13,10 +13,9 @@ exports.saveClient = (client) =>{
             }
         })
     });
-    
+
     connection.end();
 }
-
 
 exports.getAllClients = ()=>{
     var connection = dbConnection.openConnection();

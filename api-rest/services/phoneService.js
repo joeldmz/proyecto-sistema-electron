@@ -22,6 +22,48 @@ function savePhoneClient(phonClient) {
   con.end();
 }
 
+function loadAllPhones() {
+  con.openConnection();
+  query = phq.loadAllPhones();
+  con.query(query, (err, allPhones) => {
+    if (err) {
+      console.log("Error al traer los datos: " + err);
+    } else {
+      return allPhones;
+    }
+  })
+  con.end();
+}
+
+function getPhonesById(id) {
+  con.openConnection();
+  query = phq.getPhonesById(id);
+  con.query(query, (err, allPhones) => {
+    if (err) {
+      console.log("Error al traer los datos: " + err);
+    } else {
+      return allPhones;
+    }
+  })
+  con.end();
+}
+
+function loadAllTrademarks() {
+  con.openConnection();
+  query = phq.loadAllPhones();
+  con.query(query, (err, allPhones) => {
+    if (err) {
+      console.log("Error al traer los datos: " + err);
+    } else {
+      return allPhones;
+    }
+  })
+  con.end();
+}
+
 module.exports = {
-  savePhoneClient
+  savePhoneClient,
+  loadAllPhones,
+  getPhonesById,
+  loadAllTrademarks
 }

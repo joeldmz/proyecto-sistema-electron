@@ -4,8 +4,8 @@ function insertQuery(table){
   return `INSERT INTO ${table} SET ?`;
 }
 
-function initalQuery(columns, table){
-  return `SELECT ${columns} FROM ${table} WHERE`;
+function initalQuery(columns, table, where){
+  return `SELECT ${columns} FROM ${table} ${where?'WHERE':''}`;
 }
 
 function equal(column, value){

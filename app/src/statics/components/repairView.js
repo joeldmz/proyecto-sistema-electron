@@ -1,6 +1,6 @@
 
 Vue.component('repair-component', {
-    template:
+  template:
     `<div>
             <div>
                 <div v-if="addRepair" class="alert alert-success alert-dismissible" id="info">
@@ -302,483 +302,487 @@ Vue.component('repair-component', {
     <!--div final-->
     </div>`,
 
-    data() {
-       return {
-                //controllers
-                clientController:null,
-                phoneController:null,
-                repairController:null,
-                //lists
-                trademarks:[],
-                clients:[],
-                phones:[],
-                repairs:[],
-                phoneModel:[],
-                phonesOfClient:[],
-                repairsOfPhone:[],
-                partPrice: false,
-                fieldDate:"",
-                fieldNameClient:"",
-                fieldPhoneTademark:"",
-                fieldPhoneModel:"",
-                fieldDescription:"",
-                fieldPrice:"",
-                fieldState:"",
-                fieldPartPrice:"",
-                fieldBalance:"",
-                //alerts
-                addRepair: false,
-                alertInfo: false,
-                //display data client
-                inputClientName:"",
-                inputClientAddress:"",
-                //display data phone
-                inputPhoneDate:"",
-                inputPhoneObservation:"",
-                inputPhoneState:"",
-                inputPhonePrice:"",
-                inputPhonePartPrice:"",
-                inputPhoneBalance:"",
-                //admin components
-                modalForm:true,
-                modalConfirm: false,
-                inputSaveClient: true,
-                inputSavePhone: true,
-                btnSavePhone:false,
-                btnSaveRepair:false,
-                btnSaveClient:false,
-                //input search
-                selectedNameClient: "",
-                //client data
-                phoneClient_id_client: 0,
-                phoneClient_id_phone:0,
-                //phone data
-                phone_trademark: "",
-                phone_model:"",
-                //repair data
-                repair_id_client_phone: 0,
-                repair_client_name:"",
-                repair_client_address:"",
-                repair_state:"",
-                repair_date:"",
-                repair_description:"",
-                repair_observations:"",
-                repair_part_price: 0,
-                repair_balance: 0,
-                repair_price: 0,
-
-            }
-    },
-
-    created: function(){
-         this.loadAllPhones();
-         this.loadAllClients();
-         this.loadAllRepairs();
-    },
-
-    methods:{
-        loadAllClients: function(){
-            this.clientController = require("../api-rest/controller/clientController");
-            this.clients = this.clientController.getAllClients();
-        },
-
-        loadAllPhones: function(){
-            //var phoneController = require("../api-rest/controller/phoneController");
-            this.phoneController = require("../api-rest/controller/phoneController");
-            this.phones = this.phoneController.loadAllPhones();
-            this.trademarks = this.phoneController.loadAllTrademarks();
-        },
-
-        loadAllRepairs: function (){
-            //var repairController = require("../api-rest/controller/repairController");
-            this.repairController = require("../api-rest/controller/repairController");
-            this.repairs = this.repairController.getAllRepairs();
-        },
-
-
-        saveClientAndPhone: function(){
-                this.modalForm = true;
-                this.clearFields();
-                this.repair_client_address="-------------------------";
-                this.btnSavePhone = false;
-                this.btnSaveRepair = false;
-                this.inputSaveClient = true;
-                this.inputSavePhone = true;
-                this.btnSaveClient = true;
-        },
-
-
-        savePhoneAndRepair: function(){
-            this.modalForm = false;
-            if(this.phoneClient_id_client != 0){
-                this.modalForm = true;
-                this.clearFields();
-                this.inputSaveClient = false;
-                this.btnSaveRepair = false;
-                this.btnSaveClient = false;
-                this.inputSavePhone = true;
-                this.btnSavePhone = true;
-            }else{
-                this.alertInfo = true;
-                this.addConfirm();
-            }
-
-        },
-
-
-        phoneAddRepair: function(phone){
-            this.modalForm = true;
-            this.clearFields();
-            this.inputSaveClient = false;
-            this.inputSavePhone = false;
-            this.btnSavePhone = false;
-            this.btnSaveClient = false;
-            this.btnSaveRepair = true;
-            this.repair_id_client_phone = phone.id_client_phone;
-        },
-
-
-
-
-        //alta cliente
-        saveClient: function(){
-            var client = {
-                name:this.repair_client_name,
-                address:this.repair_client_address
-            }
-            this.clientController.saveClient(client)
-            .then((res)=>{
-                this.phoneClient_id_client = res;
-                this.loadAllClients();
-            }).then(this.savePhone);
-        },
-
-
-
-        //guardar telefono
-        savePhone: function(){
-            var phoneClient ={
-                id_client:this.phoneClient_id_client,
-                id_phone:this.phoneClient_id_phone,
-            };
-
-            this.phoneController.savePhoneClient(phoneClient)
-            .then((res)=>{
-                this.repair_id_client_phone = res;
-            })
-            .then(this.saveRepair);
-        },
-
-
-
-        //guardar reparacion
-        saveRepair: function(){
-                var repair = {
-                    repair_date: this.repair_date,
-                    repair_description: this.repair_description,
-                    repair_observations: this.repair_observations,
-                    repair_state: this.repair_state,
-                    repair_part_price: this.repair_part_price,
-                    repair_balance: this.repair_balance,
-                    repair_price: this.repair_price,
-                    repair_id_phone: this.repair_id_client_phone,
-                }
-
-                this.repairController.saveRepair(repair)
-                .then((res)=>{
-                    this.addRepair = res;
-                    this.addConfirm();
-                    this.selectedClient();
-                    this.loadAllRepairs();
-                });
-        },
-
-
-        //busca id del cliente y extrae todos sus telefonos de la bd
-        selectedClient: function(){
-            var id = 0;
-            for(let client of this.clients){
-                if(client.name == this.selectedNameClient){
-                      id = client.id_client;
-                      this.inputClientName = client.name;
-                      this.inputClientAddress = client.address;
-                }
-            }
-            //guradando id del cliente
-            this.phoneClient_id_client = id;
-
-            //var phoneController = require("../api-rest/controller/phoneController");
-            this.phonesOfClient = this.phoneController.getPhonesById(id);
-        },
-
-        selectedLastClientInsert: function(num){
-            this.loadAllClients();
-            console.log("insertt " + num);
-            var n = "";
-            for(let client of this.clients){
-                if(client.id_client == num){
-                       n = client.name;
-                }
-            }
-            this.selectedNameClient = n;
-        },
-
-        //agrega a la lista de  modelos de acuerdo a la marca
-        selectedModel: function(){
-            var id = 0;
-            this.phone_model="";
-            this.phoneModel=[];
-            for(let trademark of this.trademarks){
-                if(trademark.trademark == this.phone_trademark){
-                    id = trademark.id_trademark;
-                }
-            }
-
-            for(let phone of this.phones){
-                if(phone.trademark_id_trademark == id){
-                    this.phoneModel.push(phone);
-                }
-            }
-        },
-
-        //estrae el id del modelo de la lita de modelos
-        getIdModel: function(){
-            var idModel = 0;
-            for(let phone of this.phones){
-                if(phone.phone_model == this.phone_model){
-                    idModel = phone.id_phone;
-                }
-            }
-
-            this.phoneClient_id_phone = idModel;
-        },
-
-
-        //agrega a lista de reparaciones de los celulares del cliente
-        selectedPhone: function(phone){
-            this.repairsOfPhone = [];
-            for(let repair of this.repairs){
-                if(phone.id_client_phone == repair.clientPhone_id_client_phone){
-                    this.repairsOfPhone.push(repair);
-                }
-            }
-        },
-
-        selectedRepair: function(repair){
-
-            this.inputPhoneDate = repair.date.toISOString().slice(0,10);
-            if(repair.observations == ""){
-                this.inputPhoneObservation = "sin observaciones";
-            }else{
-                this.inputPhoneObservation =  repair.observations;
-            }
-            this.inputPhoneState = repair.state;
-            this.inputPhonePrice = repair.price;
-            this.inputPhonePartPrice = repair.part_pay;
-            this.inputPhoneBalance = repair.balance;
-        },
-
-
-        checkClientAndPhone: function(){
-            this.getIdModel();
-            this.modalConfirm = false;
-            if(this.repair_date == ""){
-                this.fieldDate = "#F1948A";
-            }else{
-                if(this.repair_client_name == ""){
-                    this.fieldNameClient = "#F1948A";
-                }else{
-                    if(this.phone_trademark == ""){
-                        this.fieldPhoneTademark = "#F1948A";
-                    }else{
-                        if(this.phone_model == ""){
-                            this.fieldPhoneModel = "#F1948A";
-                        }else{
-                            if(this.repair_description == ""){
-                                this.fieldDescription = "#F1948A";
-                            }else{
-                                if(this.repair_price <= 0){
-                                    this.fieldPrice = "#F1948A";
-                                }else{
-                                    if(this.repair_state == ""){
-                                        this.fieldState = "#F1948A";
-                                    }else{
-                                        if(this.partPrice == true ){
-                                            if(this.repair_part_price <= 0){
-                                                this.fieldPartPrice = "#F1948A";
-                                            }else{
-                                                if(this.repair_balance <= 0){
-                                                    this.fieldBalance = "#F1948A";
-                                                }else{
-                                                    this.modalConfirm = true;
-                                                }
-                                            }
-                                        }else{
-                                            this.modalConfirm = true;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-
-
-        checkPhoneAndRepair: function(){
-            this.getIdModel();
-            this.modalConfirm = false;
-            if(this.repair_date == ""){
-                this.fieldDate = "#F1948A";
-            }else{
-                if(this.phone_trademark == ""){
-                    this.fieldPhoneTademark = "#F1948A";
-                }else{
-                    if(this.phone_model == ""){
-                        this.fieldPhoneModel = "#F1948A";
-                    }else{
-                        if(this.repair_description == ""){
-                            this.fieldDescription = "#F1948A";
-                        }else{
-                            if(this.repair_price <= 0){
-                                this.fieldPrice = "#F1948A";
-                            }else{
-                                if(this.repair_state == ""){
-                                    this.fieldState = "#F1948A";
-                                }else{
-                                    if(this.partPrice == true ){
-                                        if(this.repair_part_price <= 0){
-                                            this.fieldPartPrice = "#F1948A";
-                                        }else{
-                                            if(this.repair_balance <= 0){
-                                                this.fieldBalance = "#F1948A";
-                                            }else{
-                                                this.modalConfirm = true;
-                                            }
-                                        }
-                                    }else{
-                                        this.modalConfirm = true;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-
-
-        checkRepair: function(){
-            this.getIdModel();
-            this.modalConfirm = false;
-            if(this.repair_date == ""){
-                this.fieldDate = "#F1948A";
-            }else{
-                if(this.repair_description == ""){
-                    this.fieldDescription = "#F1948A";
-                }else{
-                    if(this.repair_price <= 0){
-                        this.fieldPrice = "#F1948A";
-                    }else{
-                        if(this.repair_state == ""){
-                            this.fieldState = "#F1948A";
-                        }else{
-                            if(this.partPrice == true ){
-                                if(this.repair_part_price <= 0){
-                                    this.fieldPartPrice = "#F1948A";
-                                }else{
-                                    if(this.repair_balance <= 0){
-                                        this.fieldBalance = "#F1948A";
-                                    }else{
-                                        this.modalConfirm = true;
-                                    }
-                                }
-                            }else{
-                                this.modalConfirm = true;
-                            }
-                        }
-                    }
-                }
-            }
-        },
-
-        //mustra los campos seña y saldo
-        selectedFormPrice: function(){
-            if(this.repair_state == "En reparacion / con seña"){
-                this.partPrice = true;
-                this.repair_part_price = 0;
-                this.repair_balance = 0;
-            }else{
-                this.partPrice = false;
-                this.repair_part_price = 0;
-                this.repair_balance = 0;
-            }
-        },
-
-        calculateBalance: function(){
-            this.repair_balance = this.repair_price - this.repair_part_price;
-        },
-
-        clearFields: function(){
-                this.phone_trademark = "";
-                this.phone_model = "";
-                this.repair_client_name = "";
-                this.repair_client_address = "";
-                this.repair_state = "";
-                this.repair_date = "";
-                this.repair_description = "";
-                this.repair_observations = "";
-                this.repair_part_price = 0;
-                this.repair_balance = 0;
-                this.repair_price = 0;
-                this.partPrice = false;
-
-                this.fieldDate="";
-                this.fieldNameClient="";
-                this.fieldPhoneTademark="";
-                this.fieldPhoneModel="";
-                this.fieldDescription="";
-                this.fieldPrice="";
-                this.fieldState="";
-                this.fieldPartPrice="";
-                this.fieldBalance="";
-        },
-
-
-        resetAll:function(op){
-          if(op == 1){
-            this.modalForm = false;
-            this.inputClientName = "";
-            this.inputClientAddress = "";
-            this.phoneClient_id_client = 0;
-            this.phonesOfClient=[];
-            this.repairsOfPhone=[];
-            this.inputPhoneDate="";
-            this.inputPhoneObservation="";
-            this.inputPhoneState="";
-            this.inputPhonePrice="",
-            this.inputPhonePartPrice="";
-            this.inputPhoneBalance="";
-          }else{
-              if(op == 2){
-                this.inputPhoneDate="";
-                this.inputPhoneObservation="";
-                this.inputPhoneState="";
-                this.inputPhonePrice="",
-                this.inputPhonePartPrice="";
-                this.inputPhoneBalance="";
-              }
-          }
-        },
-
-        //mustra dialogo por 5 segundos
-        addConfirm: function(){
-                setTimeout(()=>{
-                    this.addRepair = false;
-                    this.alertInfo = false;
-                  },5000);
-        }
+  data() {
+    return {
+      //controllers
+      clientController: null,
+      phoneController: null,
+      repairController: null,
+      //lists
+      trademarks: [],
+      clients: [],
+      phones: [],
+      repairs: [],
+      phoneModel: [],
+      phonesOfClient: [],
+      repairsOfPhone: [],
+      partPrice: false,
+      fieldDate: "",
+      fieldNameClient: "",
+      fieldPhoneTademark: "",
+      fieldPhoneModel: "",
+      fieldDescription: "",
+      fieldPrice: "",
+      fieldState: "",
+      fieldPartPrice: "",
+      fieldBalance: "",
+      //alerts
+      addRepair: false,
+      alertInfo: false,
+      //display data client
+      inputClientName: "",
+      inputClientAddress: "",
+      //display data phone
+      inputPhoneDate: "",
+      inputPhoneObservation: "",
+      inputPhoneState: "",
+      inputPhonePrice: "",
+      inputPhonePartPrice: "",
+      inputPhoneBalance: "",
+      //admin components
+      modalForm: true,
+      modalConfirm: false,
+      inputSaveClient: true,
+      inputSavePhone: true,
+      btnSavePhone: false,
+      btnSaveRepair: false,
+      btnSaveClient: false,
+      //input search
+      selectedNameClient: "",
+      //client data
+      phoneClient_id_client: 0,
+      phoneClient_id_phone: 0,
+      //phone data
+      phone_trademark: "",
+      phone_model: "",
+      //repair data
+      repair_id_client_phone: 0,
+      repair_client_name: "",
+      repair_client_address: "",
+      repair_state: "",
+      repair_date: "",
+      repair_description: "",
+      repair_observations: "",
+      repair_part_price: 0,
+      repair_balance: 0,
+      repair_price: 0,
 
     }
+  },
+
+  created: function () {
+    //this.loadAllPhones();
+    this.loadAllClients();
+    this.loadAllRepairs();
+  },
+  mounted: function () {
+    this.loadAllPhones();
+  },
+  methods: {
+    loadAllClients: function () {
+      this.clientController = require("../api-rest/controller/clientController");
+      this.clients = this.clientController.getAllClients();
+    },
+
+    loadAllPhones: function () {
+      //var phoneController = require("../api-rest/controller/phoneController");
+      this.phoneController = require("../api-rest/controller/phoneController");
+      this.phoneController.loadAllPhones()
+      .then(data => this.phones = data);
+      this.phoneController.loadAllTrademarks()
+      .then(data => this.trademarks = data);
+    },
+
+    loadAllRepairs: function () {
+      //var repairController = require("../api-rest/controller/repairController");
+      this.repairController = require("../api-rest/controller/repairController");
+      this.repairs = this.repairController.getAllRepairs();
+    },
+
+
+    saveClientAndPhone: function () {
+      this.modalForm = true;
+      this.clearFields();
+      this.repair_client_address = "-------------------------";
+      this.btnSavePhone = false;
+      this.btnSaveRepair = false;
+      this.inputSaveClient = true;
+      this.inputSavePhone = true;
+      this.btnSaveClient = true;
+    },
+
+
+    savePhoneAndRepair: function () {
+      this.modalForm = false;
+      if (this.phoneClient_id_client != 0) {
+        this.modalForm = true;
+        this.clearFields();
+        this.inputSaveClient = false;
+        this.btnSaveRepair = false;
+        this.btnSaveClient = false;
+        this.inputSavePhone = true;
+        this.btnSavePhone = true;
+      } else {
+        this.alertInfo = true;
+        this.addConfirm();
+      }
+
+    },
+
+
+    phoneAddRepair: function (phone) {
+      this.modalForm = true;
+      this.clearFields();
+      this.inputSaveClient = false;
+      this.inputSavePhone = false;
+      this.btnSavePhone = false;
+      this.btnSaveClient = false;
+      this.btnSaveRepair = true;
+      this.repair_id_client_phone = phone.id_client_phone;
+    },
+
+
+
+
+    //alta cliente
+    saveClient: function () {
+      var client = {
+        name: this.repair_client_name,
+        address: this.repair_client_address
+      }
+      this.clientController.saveClient(client)
+        .then((res) => {
+          this.phoneClient_id_client = res;
+          this.loadAllClients();
+        }).then(this.savePhone);
+    },
+
+
+
+    //guardar telefono
+    savePhone: function () {
+      var phoneClient = {
+        id_client: this.phoneClient_id_client,
+        id_phone: this.phoneClient_id_phone,
+      };
+
+      this.phoneController.savePhoneClient(phoneClient)
+        .then((res) => {
+          this.repair_id_client_phone = res;
+        })
+        .then(this.saveRepair);
+    },
+
+
+
+    //guardar reparacion
+    saveRepair: function () {
+      var repair = {
+        repair_date: this.repair_date,
+        repair_description: this.repair_description,
+        repair_observations: this.repair_observations,
+        repair_state: this.repair_state,
+        repair_part_price: this.repair_part_price,
+        repair_balance: this.repair_balance,
+        repair_price: this.repair_price,
+        repair_id_phone: this.repair_id_client_phone,
+      }
+
+      this.repairController.saveRepair(repair)
+        .then((res) => {
+          this.addRepair = res;
+          this.addConfirm();
+          this.selectedClient();
+          this.loadAllRepairs();
+        });
+    },
+
+
+    //busca id del cliente y extrae todos sus telefonos de la bd
+    selectedClient: function () {
+      var id = 0;
+      for (let client of this.clients) {
+        if (client.name == this.selectedNameClient) {
+          id = client.id_client;
+          this.inputClientName = client.name;
+          this.inputClientAddress = client.address;
+        }
+      }
+      //guradando id del cliente
+      this.phoneClient_id_client = id;
+
+      //var phoneController = require("../api-rest/controller/phoneController");
+      this.phonesOfClient = this.phoneController.getPhonesById(id);
+    },
+
+    selectedLastClientInsert: function (num) {
+      this.loadAllClients();
+      console.log("insertt " + num);
+      var n = "";
+      for (let client of this.clients) {
+        if (client.id_client == num) {
+          n = client.name;
+        }
+      }
+      this.selectedNameClient = n;
+    },
+
+    //agrega a la lista de  modelos de acuerdo a la marca
+    selectedModel: function () {
+      var id = 0;
+      this.phone_model = "";
+      this.phoneModel = [];
+      for (let trademark of this.trademarks) {
+        if (trademark.trademark == this.phone_trademark) {
+          id = trademark.id_trademark;
+        }
+      }
+
+      for (let phone of this.phones) {
+        if (phone.trademark_id_trademark == id) {
+          this.phoneModel.push(phone);
+        }
+      }
+    },
+
+    //estrae el id del modelo de la lita de modelos
+    getIdModel: function () {
+      var idModel = 0;
+      for (let phone of this.phones) {
+        if (phone.phone_model == this.phone_model) {
+          idModel = phone.id_phone;
+        }
+      }
+
+      this.phoneClient_id_phone = idModel;
+    },
+
+
+    //agrega a lista de reparaciones de los celulares del cliente
+    selectedPhone: function (phone) {
+      this.repairsOfPhone = [];
+      for (let repair of this.repairs) {
+        if (phone.id_client_phone == repair.clientPhone_id_client_phone) {
+          this.repairsOfPhone.push(repair);
+        }
+      }
+    },
+
+    selectedRepair: function (repair) {
+
+      this.inputPhoneDate = repair.date.toISOString().slice(0, 10);
+      if (repair.observations == "") {
+        this.inputPhoneObservation = "sin observaciones";
+      } else {
+        this.inputPhoneObservation = repair.observations;
+      }
+      this.inputPhoneState = repair.state;
+      this.inputPhonePrice = repair.price;
+      this.inputPhonePartPrice = repair.part_pay;
+      this.inputPhoneBalance = repair.balance;
+    },
+
+
+    checkClientAndPhone: function () {
+      this.getIdModel();
+      this.modalConfirm = false;
+      if (this.repair_date == "") {
+        this.fieldDate = "#F1948A";
+      } else {
+        if (this.repair_client_name == "") {
+          this.fieldNameClient = "#F1948A";
+        } else {
+          if (this.phone_trademark == "") {
+            this.fieldPhoneTademark = "#F1948A";
+          } else {
+            if (this.phone_model == "") {
+              this.fieldPhoneModel = "#F1948A";
+            } else {
+              if (this.repair_description == "") {
+                this.fieldDescription = "#F1948A";
+              } else {
+                if (this.repair_price <= 0) {
+                  this.fieldPrice = "#F1948A";
+                } else {
+                  if (this.repair_state == "") {
+                    this.fieldState = "#F1948A";
+                  } else {
+                    if (this.partPrice == true) {
+                      if (this.repair_part_price <= 0) {
+                        this.fieldPartPrice = "#F1948A";
+                      } else {
+                        if (this.repair_balance <= 0) {
+                          this.fieldBalance = "#F1948A";
+                        } else {
+                          this.modalConfirm = true;
+                        }
+                      }
+                    } else {
+                      this.modalConfirm = true;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+
+    checkPhoneAndRepair: function () {
+      this.getIdModel();
+      this.modalConfirm = false;
+      if (this.repair_date == "") {
+        this.fieldDate = "#F1948A";
+      } else {
+        if (this.phone_trademark == "") {
+          this.fieldPhoneTademark = "#F1948A";
+        } else {
+          if (this.phone_model == "") {
+            this.fieldPhoneModel = "#F1948A";
+          } else {
+            if (this.repair_description == "") {
+              this.fieldDescription = "#F1948A";
+            } else {
+              if (this.repair_price <= 0) {
+                this.fieldPrice = "#F1948A";
+              } else {
+                if (this.repair_state == "") {
+                  this.fieldState = "#F1948A";
+                } else {
+                  if (this.partPrice == true) {
+                    if (this.repair_part_price <= 0) {
+                      this.fieldPartPrice = "#F1948A";
+                    } else {
+                      if (this.repair_balance <= 0) {
+                        this.fieldBalance = "#F1948A";
+                      } else {
+                        this.modalConfirm = true;
+                      }
+                    }
+                  } else {
+                    this.modalConfirm = true;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+
+    checkRepair: function () {
+      this.getIdModel();
+      this.modalConfirm = false;
+      if (this.repair_date == "") {
+        this.fieldDate = "#F1948A";
+      } else {
+        if (this.repair_description == "") {
+          this.fieldDescription = "#F1948A";
+        } else {
+          if (this.repair_price <= 0) {
+            this.fieldPrice = "#F1948A";
+          } else {
+            if (this.repair_state == "") {
+              this.fieldState = "#F1948A";
+            } else {
+              if (this.partPrice == true) {
+                if (this.repair_part_price <= 0) {
+                  this.fieldPartPrice = "#F1948A";
+                } else {
+                  if (this.repair_balance <= 0) {
+                    this.fieldBalance = "#F1948A";
+                  } else {
+                    this.modalConfirm = true;
+                  }
+                }
+              } else {
+                this.modalConfirm = true;
+              }
+            }
+          }
+        }
+      }
+    },
+
+    //mustra los campos seña y saldo
+    selectedFormPrice: function () {
+      if (this.repair_state == "En reparacion / con seña") {
+        this.partPrice = true;
+        this.repair_part_price = 0;
+        this.repair_balance = 0;
+      } else {
+        this.partPrice = false;
+        this.repair_part_price = 0;
+        this.repair_balance = 0;
+      }
+    },
+
+    calculateBalance: function () {
+      this.repair_balance = this.repair_price - this.repair_part_price;
+    },
+
+    clearFields: function () {
+      this.phone_trademark = "";
+      this.phone_model = "";
+      this.repair_client_name = "";
+      this.repair_client_address = "";
+      this.repair_state = "";
+      this.repair_date = "";
+      this.repair_description = "";
+      this.repair_observations = "";
+      this.repair_part_price = 0;
+      this.repair_balance = 0;
+      this.repair_price = 0;
+      this.partPrice = false;
+
+      this.fieldDate = "";
+      this.fieldNameClient = "";
+      this.fieldPhoneTademark = "";
+      this.fieldPhoneModel = "";
+      this.fieldDescription = "";
+      this.fieldPrice = "";
+      this.fieldState = "";
+      this.fieldPartPrice = "";
+      this.fieldBalance = "";
+    },
+
+
+    resetAll: function (op) {
+      if (op == 1) {
+        this.modalForm = false;
+        this.inputClientName = "";
+        this.inputClientAddress = "";
+        this.phoneClient_id_client = 0;
+        this.phonesOfClient = [];
+        this.repairsOfPhone = [];
+        this.inputPhoneDate = "";
+        this.inputPhoneObservation = "";
+        this.inputPhoneState = "";
+        this.inputPhonePrice = "",
+          this.inputPhonePartPrice = "";
+        this.inputPhoneBalance = "";
+      } else {
+        if (op == 2) {
+          this.inputPhoneDate = "";
+          this.inputPhoneObservation = "";
+          this.inputPhoneState = "";
+          this.inputPhonePrice = "",
+            this.inputPhonePartPrice = "";
+          this.inputPhoneBalance = "";
+        }
+      }
+    },
+
+    //mustra dialogo por 5 segundos
+    addConfirm: function () {
+      setTimeout(() => {
+        this.addRepair = false;
+        this.alertInfo = false;
+      }, 5000);
+    }
+
+  }
 })
